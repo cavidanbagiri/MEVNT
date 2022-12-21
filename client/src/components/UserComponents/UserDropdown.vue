@@ -1,0 +1,97 @@
+
+
+<template>
+    <div :class="toggle_value ? 'drop-open' : 'drop-close'" class="fixed top-10 right-0 bg-white px-3 py-3 shadow-lg">
+        <ul class="p-1">
+            <li class="flex items-center mt-1 border border-orange-300 px-3 py-1 rounded-lg">
+                <img src="//avatars.mds.yandex.net/get-yapic/0/0-0/islands-retina-50" class="w-10 h-10" alt="">
+                <div class="flex flex-col mx-2">
+                    <span class="font-bold text-lg">Cavidan Bagiri</span>
+                    <span class="text-gray-500 text-md">cavidanbagiri@gmail.com</span>
+                </div>
+            </li>
+            <li class="flex items-center my-4 mx-1">
+                <span><i class="fa-solid fa-gift fa-xl"></i></span>
+                <div class="flex flex-col mx-2">
+                    <span class="font-bold text-md px-4">Suggest Friends</span>
+                    <span class="text-gray-500 text-md px-4 text-sm">Suggest friends and earn gift</span>
+                </div>
+            </li>
+            <li class="my-4 mx-1 ">
+                <button class="hover:bg-yellow-100 py-2 rounded-lg w-full text-start"
+                 @click="toggleLoginRegisterModal">
+                    <span class="pl-1 pr-3"><i class="fa-solid fa-arrow-right-to-bracket fa-lg"></i></span>
+                    <span class="px-4">Login or Register</span>
+                </button>
+            </li>
+            <li class="my-4 mx-1">
+                <span class="pl-1 pr-3"><i class="fa-solid fa-wand-magic-sparkles fa-lg"></i></span>
+                <span class="px-4">Orders</span>
+            </li>
+            <li class="my-4 mx-1">
+                <span class="pl-1 pr-3"><i class="fa-solid fa-rotate-left  fa-lg"></i></span>
+                <span class="px-4">Refund</span>
+            </li>
+            <li class="my-4 mx-1">
+                <span class="pl-1 pr-3"><i class="fa-brands fa-cc-diners-club fa-lg"></i></span>
+                <span class="px-4">Coupon</span>
+            </li>
+            <li class="my-4 mx-1">
+                <span class="pl-1 pr-3"><i class="fa-solid fa-basket-shopping  fa-lg"></i></span>
+                <span class="px-4">Basket</span>
+            </li>
+            <li class="my-4 mx-1">
+                <span class="pl-1 pr-3"><i class="fa-regular fa-credit-card fa-lg"></i></span>
+                <span class="px-4">Cards</span>
+            </li>
+            <li class="my-4 mx-1">
+                <span class="pl-1 pr-3"><i class="fa-regular fa-heart  fa-lg"></i></span>
+                <span class="px-4">Favorites</span>
+            </li>
+            <li class="my-4 mx-1">
+                <span class="pl-1 pr-3"><i class="fa-regular fa-message fa-lg"></i></span>
+                <span class="px-4">Chat</span>
+            </li>
+            <li class="my-4 mx-1">
+                <span class="pl-1 pr-3"><i class="fa-solid fa-gear fa-lg"></i></span>
+                <span class="px-4">Setting</span>
+            </li>
+            <li class="my-4 mx-1">
+                <span class="pl-1 pr-3"><i class="fa-solid fa-right-from-bracket fa-lg"></i></span>
+                <span class="px-4">Logout</span>
+            </li>
+        </ul>
+    </div>
+</template>
+
+<script setup>
+
+import { computed } from 'vue';
+import canvasChecking from '../../store';
+const store = canvasChecking();
+
+//***************************************************** Open Or Close Login Register Modal *********************/
+const toggleLoginRegisterModal = () => store.TOGGLELOGINREGISTERMODAL();
+//*********************************************************************************************************/
+
+//***************************************************** Open Or Close DropDown Button *********************/
+const prop = defineProps(['toggle_value'])
+const toggle_value = computed(() => {
+    return prop.toggle_value;
+})
+//*********************************************************************************************************/
+
+</script>
+
+<style scoped>
+
+.drop-open {
+    transform: translate3d(0, 0, 0);
+    transition: 0.6s all ease;
+}
+
+.drop-close {
+    transform: translate3d(0, -150%, 0);
+    transition: 0.6s all ease;
+}
+</style>
