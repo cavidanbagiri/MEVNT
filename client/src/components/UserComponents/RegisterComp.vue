@@ -32,8 +32,14 @@
 
 <script setup>
 
+import userStore from '../../store/user';
+const store = userStore();
 
-const onSubmit = (values) => { console.log('clicked : ', values) };
+const onSubmit = async (values) => { 
+
+    await store.REGISTERUSER(values);
+
+};
 
 </script>
 
