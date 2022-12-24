@@ -8,12 +8,12 @@ const hashPassword = async (data) => {
 };
 
 const generateToken = async (data) => {
-  const token = sign({ data }, "generate",{expiresIn:'15s'});
+  const token = sign({ data }, "generate",{expiresIn:'30s'});
   return token;
 };
 
 const resfreshToken = async (data) => {
-    const token = sign({ data }, "refresh",{expiresIn:'15s'});
+    const token = sign({ data }, "refresh",{expiresIn:'15m'});
     return token;
   };
 

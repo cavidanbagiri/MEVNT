@@ -12,6 +12,7 @@ class UserServices{
     //Login User
     static async loginUser(user_data){
         const current_user = await User.findOne(user_data);
+        delete current_user.password;
         return current_user;
     }
 

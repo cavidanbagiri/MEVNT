@@ -25,9 +25,10 @@ class UserController {
       user.password = await hashPassword(user.password);
       await UserServices.loginUser(user)
         .then(async (respond) => {
-          const generate_token = await generateToken(respond);
+          const access_token = await generateToken(respond);
           const refresh_token = await resfreshToken(respond);
-          res.json({ "Generate Token ":generate_token, "Refresh Token ":refresh_token , " User : ": respond });
+          res.cookie("token",access_token,{httpOnly:true, maxAge:24*60*60*1000});
+          res.json({token:access_token,user:respond});
         })
         .catch((err) => console.log("User Cant Login : ", err));
     }catch(err){
