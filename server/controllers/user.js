@@ -1,14 +1,20 @@
-
 import UserServices from "../services/user.js";
-import { hashPassword, generateToken, resfreshToken} from '../scripts/helpers.js';
+import {
+  hashPassword,
+  generateToken,
+  resfreshToken,
+} from "../scripts/helpers.js";
+
+//Import NOde Mailer
+import nodemailer from "nodemailer";
 
 class UserController {
   //Register User
   static async registerUser(req, res) {
     try {
+      
       const user = req.body;
       user.password = await hashPassword(user.password);
-      console.log(user);
       await UserServices.registerUser(user)
         .then((respond) => {
           res.send(respond);
@@ -19,20 +25,23 @@ class UserController {
     }
   }
   //Login User
-  static async loginUser(req, res){
-    try{
+  static async loginUser(req, res) {
+    try {
       const user = req.body;
       user.password = await hashPassword(user.password);
       await UserServices.loginUser(user)
         .then(async (respond) => {
           const access_token = await generateToken(respond);
           const refresh_token = await resfreshToken(respond);
-          res.cookie("token",access_token,{httpOnly:true, maxAge:24*60*60*1000});
-          res.json({token:access_token,user:respond});
+          res.cookie("token", access_token, {
+            httpOnly: true,
+            maxAge: 24 * 60 * 60 * 1000,
+          });
+          res.json({ token: access_token, user: respond });
         })
         .catch((err) => console.log("User Cant Login : ", err));
-    }catch(err){
-      console.log('User Login Error : ',err);
+    } catch (err) {
+      console.log("User Login Error : ", err);
     }
   }
 }
