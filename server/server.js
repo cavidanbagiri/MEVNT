@@ -1,23 +1,39 @@
 
 import express from 'express'; 
 const app = express();
-import cookieParser from 'cookie-parser';
+
 //Dotenv and DB Loaders
 import './config/index.js';
 import './loaders/db.js';
 import cors from 'cors';
 
+import cookieParser from 'cookie-parser';
+
+
+//********************************************************Session
+import session from 'express-session'
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
+//*************************************************************8
 
 //Import Routers
 import {UserRouter} from './routes/index.js';
 
 //User Express Json
 app.use(express.json());
-//Use CookieParser
 app.use(cookieParser());
 //Use Cors
 app.use(cors(
-    {origin:'http://localhost:5173'}
+    {
+        credentials:true,
+        // withCredentials: true,
+        origin:'http://localhost:5173'
+    }
 ));                                                             
 
 //Get Routers

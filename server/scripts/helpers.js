@@ -8,14 +8,15 @@ const hashPassword = async (data) => {
 };
 
 const generateToken = async (data) => {
-  const token = sign({ data }, "generate",{expiresIn:'30s'});
+  const token = sign({ data }, "generate",{expiresIn:'10s'});
   return token;
 };
 
 const resfreshToken = async (data) => {
-    const token = sign({ data }, "refresh",{expiresIn:'15m'});
+    const token = sign({ data }, "refresh",{expiresIn:'30d'});
     return token;
-  };
+};
+
 
 export { 
     hashPassword,
