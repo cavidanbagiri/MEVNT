@@ -18,8 +18,11 @@
         <button class="w-4/5 py-2 rounded-xl font-bold my-3 border-2 border-yellow-300">
             Login
         </button>
-
+        
     </vee-form>
+    <button @click="getUser">
+        GetUser
+    </button>
 
     <a class="text-start w-4/5 mt-4 text-sm p-2 hover:underline hover:text-blue-300" href="#">Forgot Password</a>
 
@@ -31,13 +34,13 @@ import userStore from '../../store/user';
 const store = userStore();
 
 const onSubmit = async (values) => { 
-
-    // await store.REGISTERUSER(values);
-    console.log('current user ',store.current_user);
-
-    console.log('clicked : ', store)
-
+    await store.LOGINUSER(values);
 };
+
+const getUser = async () => {
+    await store.getUser();
+}
+
 
 </script>
 
