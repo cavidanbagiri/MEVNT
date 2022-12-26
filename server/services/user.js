@@ -1,6 +1,6 @@
 
 import User from '../models/user.js';
-import UserToken from '../models/refresh_token.js';
+import UserToken from '../models/token_schema.js';
 
 class TokenService{
     static async createRefreshToken(user, access_token){
