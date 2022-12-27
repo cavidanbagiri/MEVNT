@@ -2,4 +2,6 @@
 import router from './user.js';
 const UserRouter = router;
 
-export { UserRouter}
+import ProductRouter from './product.js';
+
+export { UserRouter, ProductRouter}

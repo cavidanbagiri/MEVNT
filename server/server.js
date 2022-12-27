@@ -22,7 +22,7 @@ app.use(session({
 //*************************************************************8
 
 //Import Routers
-import {UserRouter} from './routes/index.js';
+import { UserRouter, ProductRouter } from './routes/index.js';
 
 //User Express Json
 app.use(express.json());
@@ -37,7 +37,8 @@ app.use(cors(
 ));                                                             
 
 //Get Routers
-app.use('/user',UserRouter);                             
+app.use('/user', UserRouter);                             
+app.use('/product', ProductRouter);                             
 
 
 app.listen(3000,()=>{
