@@ -44,7 +44,7 @@ class ProductService {
     const products = JSON.parse(data);
     for await (let i of products.results) {
       total++;
-      if(total===1){
+      if(total===1 || total===2){
         continue
       }
       delete i["objectId"];
@@ -81,7 +81,7 @@ class ProductService {
         newItem.save();
       // const temp = await new ProductSchema(i);
       // temp.save();
-      if (total === 2) return;
+      if (total === 14) return;
     }
   }
 
