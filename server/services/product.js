@@ -5,6 +5,28 @@ import CategorySchema from "../models/categories.js";
 import PhoneSchema from "../models/phones_sub_document.js";
 
 class ProductService {
+
+  //Fetch Documents According to Catalog Name 
+  static async fetchAllDocument(catalog_name){  
+    //Find Catalog Id From Category Collection
+    const catalog = await this.findCatalogId(catalog_name);
+    //Find Document With CatalogId
+    const products = await ProductSchema.find({
+      CategoryId:catalog
+    });
+    return products;
+  }
+
+
+  //Find Category Id For Catalog Name
+  static async findCatalogId(catalog_name){
+    const category = await CategorySchema.findOne({
+      category_name : catalog_name
+    });
+    console.log('category : ',category);
+    return category;
+  }
+
   //Insert Document To Collection
   static async insertData() {
     fs.readFile("./mobile_data1.json", "utf8", async (err, data) => {
@@ -62,6 +84,7 @@ class ProductService {
       if (total === 2) return;
     }
   }
+
 }
 
 export default ProductService;
