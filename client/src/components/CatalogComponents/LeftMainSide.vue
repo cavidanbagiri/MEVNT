@@ -3,9 +3,13 @@
     <div class="col-span-9  flex-col justify-start mt-3">
 
         <div class="flex flex-wrap justify-between">
-            <template v-for="i in end" :key="i">
+            <!-- <template v-for="i in end" :key="i">
                 <card-item v-if="i >= start && i <= end" :itemnum="i"></card-item>
-            </template>
+            </template> -->
+            <div v-for="i in product" :key="i._id">
+                <card-item  :item="i"></card-item>
+            </div>
+            
         </div>
 
         <!-- Pagination -->
@@ -20,10 +24,27 @@
 
 <script setup>
 
-import { ref } from 'vue';
-import CardItem from '../CardItemTemp.vue';
+import { ref, computed, onMounted } from 'vue';
 import PaginationComp from './PaginationComp.vue';
+import CardItem from '../CardItemTemp.vue';
+import productStore from '../../store/product'
+const store = productStore();
 
+
+//********************************************************* Fetch Documents ******************************************/
+//Get All Data
+onMounted(async()=>{
+    await store.GETPHONEMARKS();
+})
+//Show On Client Side
+const product = computed(()=>{
+    return store.phones;
+})
+//********************************************************************************************************************/
+
+
+
+//********************************************************* Pagination Page ******************************************/
 //How Many Items Will Be In The Page
 const pagination_each_page_item_size = 10;
 //Start Pagination Number
@@ -34,6 +55,7 @@ const changePage = (num) => {
     start.value = (num * pagination_each_page_item_size) - (pagination_each_page_item_size-1);//6
     end.value = (num * pagination_each_page_item_size);//9
 }
+//********************************************************************************************************************/
 
 </script>
 

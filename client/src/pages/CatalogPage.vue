@@ -3,6 +3,7 @@
     <div class="grid grid-cols-12">
         
         <LeftFilterSideVue></LeftFilterSideVue>
+        
         <LeftMainSideVue></LeftMainSideVue>
         
     </div>
