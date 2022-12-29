@@ -1,20 +1,24 @@
 
 <template>
     <div class="grid grid-cols-12">
-        
+
+
+
         <LeftFilterSideVue></LeftFilterSideVue>
         
-        <LeftMainSideVue></LeftMainSideVue>
+        <MainSide :category_name = route.params.category_name></MainSide>
         
     </div>
 </template>
 
 <script setup>
 
+import {useRoute} from 'vue-router';
+
 import LeftFilterSideVue from '../components/CatalogComponents/LeftFilterSide.vue';
-import LeftMainSideVue from '../components/CatalogComponents/LeftMainSide.vue';
+import MainSide from '../components/CatalogComponents/MainSide.vue';
 
-
+const route = useRoute();
 
 
 </script>

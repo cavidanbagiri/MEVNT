@@ -4,23 +4,32 @@ import axios from "axios";
 const productStore = defineStore("ProductStore", {
   //Creating States
   state: () => ({
-    phones: [],
+    //Get Products For Catalog Page Main Side
+    products: [],
+    //Get Products Filter Item For Filter Side
+    filters: {},
   }),
 
   //Creating Getters
   getters: {
-    GETPHONES: (state) => this.phones,
+    //Get All Products
+    GETPRODUCTS: (state) => state.products,
+    //Get All Filters
+    GETFILTERS: (state) => {
+      // state.filters
+      console.log(object);
+    },
   },
 
   //Create Actions
   actions: {
-    async GETPHONEMARKS(state) {
-      console.log("Get Phone Marks Work");
+    async FETCHPRODUCTS(category_name) {
+      category_name = category_name[0].toUpperCase()+category_name.slice(1);
       await axios
-        .get("http://localhost:3000/product/Phones")
+        .get(`http://localhost:3000/product/${category_name}`)
         .then(async(respond) => {
-            this.phones = await respond.data;
-            return this.phones;
+            this.products = await respond.data;
+            return this.products;
         })
         .catch((err) => {
           console.log("get Phone Marks Doesnt Work : ", err);

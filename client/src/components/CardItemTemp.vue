@@ -38,7 +38,6 @@
 
     const props = defineProps(['item']);
 
-    console.log('props ',props.item.Model);
 
 
 </script>
