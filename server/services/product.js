@@ -31,7 +31,7 @@ class ProductService {
   static async fetchById(data_id){
     const product = await ProductSchema.findOne({
       ProductId:data_id
-    });
+    }).populate('ProductId');
     return product; 
   }
 
