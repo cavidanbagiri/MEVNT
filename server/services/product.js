@@ -27,6 +27,14 @@ class ProductService {
     return category;
   }
 
+  //Find Product With Id
+  static async fetchById(data_id){
+    const product = await ProductSchema.findOne({
+      ProductId:data_id
+    });
+    return product; 
+  }
+
   //Insert Document To Collection
   static async insertData() {
     fs.readFile("./mobile_data1.json", "utf8", async (err, data) => {
@@ -38,6 +46,8 @@ class ProductService {
       this.addSubDocument(data);
     });
   }
+
+
   //Insert Data To Phones Sub Document
   static async addSubDocument(data) {
     let total = 0;
