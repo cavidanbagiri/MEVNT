@@ -44,23 +44,23 @@ class ProductService {
     const products = JSON.parse(data);
     for await (let i of products.results) {
       total++;
-      if(total===1 || total===2){
-        continue
-      }
+      // if(total===1 || total===2){
+      //   continue
+      // }
       delete i["objectId"];
       delete i["Cell_Phone_Brands"];
       delete i["Cell_Phone_Models"];
 
       let colors = []; //Create Colors For Phones
-      let somes = i["Colors"].split("|"); //Split Colors
+      let somes = i["Colors"]?.split("|"); //Split Colors
       i["Price"] = 120
       i["Discount"] = 5
       i["Point"] = 3
-      await somes.filter((item) => colors.push(item.trim())); //Add Colors in Colors Array
+      await somes?.filter((item) => colors.push(item.trim())); //Add Colors in Colors Array
       i["Colors"] = colors;
         //Create One Phone Document
         const new_Phone = await new PhoneSchema(i);
-        new_Phone.save();
+        // new_Phone.save();
         //Find Category From Category Schema
         const category_doc = await CategorySchema.findOne({
             category_name:"Phones"
@@ -78,10 +78,8 @@ class ProductService {
             Point:3,
             Colors:colors
         })
-        newItem.save();
-      // const temp = await new ProductSchema(i);
-      // temp.save();
-      if (total === 14) return;
+      // newItem.save();
+      if (total === 13) return;
     }
   }
 

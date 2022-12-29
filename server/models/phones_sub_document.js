@@ -32,6 +32,10 @@ const phonesSchema = new mongoose.Schema({
   Radio: { type: String, default: "" },
   USB: { type: String, default: "" },
   Battery: { type: String, default: "" },
+  Filters:{
+    type:[],
+    default:['Model','Brand','Colors','SIM','Display_type','Display_size','Display_resolution',]
+  }
 });
 
 const PhoneSchema = new mongoose.model("phones", phonesSchema);
