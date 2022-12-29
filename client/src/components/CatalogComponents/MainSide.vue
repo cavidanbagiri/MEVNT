@@ -7,8 +7,8 @@
                 <card-item v-if="i >= start && i <= end" :itemnum="i"></card-item>
             </template> -->
 
-            <template v-if="product.length">
-                <div v-for="i in product" :key="i._id">
+            <template v-if="products.length">
+                <div v-for="i in products" :key="i._id">
                     <card-item :item="i"></card-item>
                 </div>
             </template>
@@ -47,9 +47,11 @@ onMounted(async () => {
     await store.FETCHPRODUCTS(props.category_name);
 })
 //Show On Client Side
-const product = computed(() => {
+const products = computed(() => {
+    store.GETFILTERS;
     return store.GETPRODUCTS;
 })
+
 //********************************************************************************************************************/
 
 

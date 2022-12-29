@@ -8,6 +8,8 @@ const productStore = defineStore("ProductStore", {
     products: [],
     //Get Products Filter Item For Filter Side
     filters: {},
+    //Get Category Name For Creating Filter Items
+    category_name:null,
   }),
 
   //Creating Getters
@@ -17,7 +19,7 @@ const productStore = defineStore("ProductStore", {
     //Get All Filters
     GETFILTERS: (state) => {
       // state.filters
-      console.log(object);
+      console.log(state.products[0]);
     },
   },
 
@@ -29,6 +31,7 @@ const productStore = defineStore("ProductStore", {
         .get(`http://localhost:3000/product/${category_name}`)
         .then(async(respond) => {
             this.products = await respond.data;
+            this.category_name = category_name;
             return this.products;
         })
         .catch((err) => {
