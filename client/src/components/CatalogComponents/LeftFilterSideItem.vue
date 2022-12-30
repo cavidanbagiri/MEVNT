@@ -20,7 +20,6 @@ const checked = ref(false)
 const props = defineProps(['item']);
 const emit = defineEmits(['filterFunc', 'unFilterFunc']);
 
-console.log(props.item);
 
 const checkboxCond = () => {
     if(checked.value){
