@@ -47,6 +47,7 @@ onMounted(async () => {
 })
 //Show On Client Side
 const products = computed(() => {
+    // setTimeout(() => { }, 3000)
     return store.GETPRODUCTS;
 })
 

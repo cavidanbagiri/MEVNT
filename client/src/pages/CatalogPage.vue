@@ -1,8 +1,6 @@
 
 <template>
-    <div class="grid grid-cols-12">
-
-
+    <div class="grid grid-cols-12 gap-10">
 
         <LeftFilterSideVue></LeftFilterSideVue>
         

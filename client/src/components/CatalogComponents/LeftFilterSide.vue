@@ -7,21 +7,26 @@
         <div class="flex flex-col items-center w-full">
             <span class="text-center text-2xl font-bold">Smartphones</span>
 
+            <!-- <div class="flex flex-col lg:flex-row justify-around  ">
+                <input type="text" placeholder="min" class=" w-24 m-2 border   p-2 rounded-lg" >
+                <input type="text" placeholder="max" class=" w-24 m-2 border   p-2 rounded-lg" >
+            </div> -->
 
-            <ul class="p-1  w-full m-2 h-72 overflow-auto ">
-                <span class="font-bold mb-1 p-1 text-xl">Brands</span><br>
-                <input class="border w-full p-2 rounded-lg my-2" placeholder="Search Brands" @input="searchBrand">
-                <li class=" p-1 flex items-center" v-for="i in filtered_brands" :key="i">
+            <div class="w-full bg-white" v-for="(value, key) in filter">
+                
+                <ul class="p-1  w-full my-5 mx-2 h-72 overflow-auto ">
+                    <div class="sticky top-0 bg-white">
+                        <span class="font-bold mb-1 p-1 text-md bg-white">{{ key }}</span><br>
+                        <input class="border w-full p-2 rounded-lg my-2  bg-white" placeholder="Search Brands" @input="searchBrand">
+                    </div>
+                <li class=" p-1 flex items-center" v-for="i in value" :key="i">
                     <left-filter-side-item :item="i" 
                     @filterFunc="checkedFunc"
                     @unFilterFunc="unCheckedFunc"
                     />
                 </li>
             </ul>
-
-            <div class="flex flex-col lg:flex-row justify-around  ">
-                <input type="text" placeholder="min" class=" w-24 m-2 border   p-2 rounded-lg" >
-                <input type="text" placeholder="max" class=" w-24 m-2 border   p-2 rounded-lg" >
+                
             </div>
 
         </div>
@@ -31,9 +36,16 @@
 
 <script setup>
 
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+
 import LeftFilterSideItem from './LeftFilterSideItem.vue';
 
+import productStore from '../../store/product'
+const store = productStore();
+
+const filter = computed(()=>{
+    return store.GETFILTERS;
+})
 
 //************************************************* Phone Names Checked List **********************************************/
 const checked_list = ref([]);

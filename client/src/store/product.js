@@ -19,10 +19,6 @@ const productStore = defineStore("ProductStore", {
     GETPRODUCTS: (state) => state.products,
     //Get All Filters
     GETFILTERS: (state) => {
-      // for (let [keys, values] of Object.entries(state.filters_key)){
-      //   // console.log(keys,' : ',values);
-      // }
-      // console.log('products ',state.products);
       return state.filters_key;
     },
   },
@@ -37,13 +33,15 @@ const productStore = defineStore("ProductStore", {
         .then(async (respond) => {
           //Take All Products
           this.products = await respond.data;
-          await this.FETCHONEPRODUCTFORFILTERS(this.products[0].ProductId);
+          await this.FETCHONEPRODUCTFORFILTERS(this.products[0].ProductId._id);
+          // console.log('filters : ',this.filters_key);
+          // console.log('i ',this.products[0]);
           for await (let i of this.products) {
             for await (let j of Object.keys(this.filters_key)) {
-              this.filters_key[j].add(i[j]);
+              this.filters_key[j].add(i.ProductId[j]);
             }
           }
-          console.log(this.filters_key);
+          console.log('filters : ',this.filters_key);
           return this.products;
         })
         .catch((err) => {
