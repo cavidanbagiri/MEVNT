@@ -34,7 +34,7 @@ const phonesSchema = new mongoose.Schema({
   Battery: { type: String, default: "" },
   Filters:{
     type:[],
-    default:['Model','Brand','Colors','SIM','Display_type','Display_size','Display_resolution',]
+    default:['Brand','Colors','SIM','Display_type','Display_size','Display_resolution',]
   }
 });
 

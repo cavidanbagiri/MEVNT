@@ -13,7 +13,8 @@ class ProductService {
     //Find Document With CatalogId
     const products = await ProductSchema.find({
       CategoryId:catalog
-    });
+    })
+    .populate('ProductId')
     return products;
   }
 
@@ -70,7 +71,7 @@ class ProductService {
       i["Colors"] = colors;
         //Create One Phone Document
         const new_Phone = await new PhoneSchema(i);
-        // new_Phone.save();
+        new_Phone.save();
         //Find Category From Category Schema
         const category_doc = await CategorySchema.findOne({
             category_name:"Phones"
@@ -88,7 +89,7 @@ class ProductService {
             Point:3,
             Colors:colors
         })
-      // newItem.save();
+      newItem.save();
       if (total === 13) return;
     }
   }

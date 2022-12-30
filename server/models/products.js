@@ -13,7 +13,6 @@ const productSchema = new mongoose.Schema(
     Price: { type: Number, required: true },
     Discount: { type: Number },
     Point: { type: Number },
-    Colors: { type: [String], default: [] },
   },
   { timestamps: true }
 );
