@@ -38,7 +38,6 @@ const store = productStore();
 
 //********************************************************* Creating Props ******************************************/
 const props = defineProps(['category_name']);
-console.log('prop is : ', props.category_name);
 //********************************************************************************************************************/
 
 //********************************************************* Fetch Documents ******************************************/
@@ -48,7 +47,6 @@ onMounted(async () => {
 })
 //Show On Client Side
 const products = computed(() => {
-    store.GETFILTERS;
     return store.GETPRODUCTS;
 })
 
