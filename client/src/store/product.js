@@ -71,7 +71,6 @@ const productStore = defineStore("ProductStore", {
       //Create Query
       if(filt_object.value.length > 0 ){
         url+='?';
-        console.log('yes');
         for(let i in filt_object.value){
           for (const [key, value] of Object.entries(filt_object.value[i])) {
             url += key+"="+value;
@@ -81,7 +80,14 @@ const productStore = defineStore("ProductStore", {
             url+="&";
           }
         }
-        console.log(url);
+        await axios.get(url).then(async(respond)=>{
+          this.products = await respond.data;
+        }).catch((err)=>{
+          console.log('Client Side Error filter : ',err);
+        })
+      }
+      else{
+        await this.FETCHPRODUCTS(this.category_name);
       }
       
     }

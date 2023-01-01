@@ -23,17 +23,19 @@
                         placeholder="Search Brands" @input="searchBrand">
                 </div>
                 <!-- Check Filter -->
-                <ul v-if="key==='Brand'"
+                <ul v-if="key === 'Brand'"
                     class="p-1  w-full  mx-2 max-h-72  overflow-auto scrollbar-thin scrollbar-thumb-yellow-300 scrollbar-track-gray-200 ">
                     <li class=" p-1 flex items-center" v-for="i in filtered_brands" :key="i">
-                        <left-filter-side-item :item="i" :filt_object="key" @filterFunc="checkedFunc" @unFilterFunc="unCheckedFunc" />
+                        <left-filter-side-item :item="i" :filt_object="key" @filterFunc="checkedFunc"
+                            @unFilterFunc="unCheckedFunc" />
                     </li>
                 </ul>
 
                 <ul v-else
                     class="p-1  w-full  mx-2 max-h-72  overflow-auto scrollbar-thin scrollbar-thumb-yellow-300 scrollbar-track-gray-200 ">
                     <li class=" p-1 flex items-center" v-for="i in value" :key="i">
-                        <left-filter-side-item :item="i" :filt_object="key" @filterFunc="checkedFunc" @unFilterFunc="unCheckedFunc" />
+                        <left-filter-side-item :item="i" :filt_object="key" @filterFunc="checkedFunc"
+                            @unFilterFunc="unCheckedFunc" />
                     </li>
                 </ul>
 
@@ -58,10 +60,20 @@ const checkedFunc = (filt_object, item) => {
     store.FETCHPRODUCTWITHFILTEROBJECT(checked_list);
 
 }
-const unCheckedFunc = (item,filt_object) => {
-
-    // checked_list.value = checked_list.value.filter((item)=>item!==name);
-    // console.log('list after dele ',checked_list.value);
+const unCheckedFunc = (filt_object, item) => {
+    let temp_arr = [];
+    for(let i in checked_list.value){
+        for(let [key, value] of Object.entries(checked_list.value[i])){
+            if(key === filt_object && value === item){
+                continue;
+            }
+            else{
+                temp_arr.push(checked_list.value[i]);
+            }
+        }
+    }
+    checked_list.value = temp_arr;
+    store.FETCHPRODUCTWITHFILTEROBJECT(checked_list);
 }
 //*************************************************************************************************************************/
 
@@ -70,15 +82,15 @@ const filter = ref([]);
 const brands = ref([]);
 const filtered_brands = ref([]);
 
-watchEffect(()=>{
-    filter.value = store.GETFILTERS; 
+watchEffect(() => {
+    filter.value = store.GETFILTERS;
     filtered_brands.value = filter.value.Brand;
     brands.value = filter.value.Brand
 })
 
 const searchBrand = (el) => {
-        filtered_brands.value = brands.value;
-        filtered_brands.value = filtered_brands.value.filter((item) => item.includes(el.target.value));
+    filtered_brands.value = brands.value;
+    filtered_brands.value = filtered_brands.value.filter((item) => item.includes(el.target.value));
 }
 
 
