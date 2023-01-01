@@ -8,7 +8,6 @@ const productStore = defineStore("ProductStore", {
     products: [],
     //Get Products Filter Item For Filter Side
     filters_key: {},
-    // filters_value: [],
     //Get Category Name For Creating Filter Items
     category_name: null,
   }),
@@ -34,14 +33,16 @@ const productStore = defineStore("ProductStore", {
           //Take All Products
           this.products = await respond.data;
           await this.FETCHONEPRODUCTFORFILTERS(this.products[0].ProductId._id);
-          // console.log('filters : ',this.filters_key);
-          // console.log('i ',this.products[0]);
           for await (let i of this.products) {
             for await (let j of Object.keys(this.filters_key)) {
               this.filters_key[j].add(i.ProductId[j]);
             }
           }
-          console.log('filters : ',this.filters_key);
+          let temp = [];
+          for(let i of this.filters_key.Brand){
+            temp.push(i);
+          }
+          this.filters_key.Brand = temp;
           return this.products;
         })
         .catch((err) => {

@@ -15,61 +15,68 @@
                 </div>
             </div>
 
-            <div class="w-full my-3 bg-white" v-for="(value, key) in filter">
+                <!-- <ul v-if="filtered_brands.length===0">
+                    <li v-for="i in brands">
+                        {{ i }}
+                    </li>
+                </ul>
+                <ul v-else>
+                    <li v-for="i in filtered_brands">
+                        {{ i }}
+                    </li>
+                </ul> -->
 
+            <div class="w-full my-3 bg-white" v-for="(value, key) in filter">
+                <!-- Search Filter -->
                 <div class="sticky top-0 bg-white">
                     <span class="font-bold mb-1 p-1 text-md bg-white">{{ key }}</span><br>
-                    <input class="border w-full p-2 rounded-lg my-2  bg-white" placeholder="Search Brands"
-                        @input="searchBrand">
+                    <input v-if="key === 'Brand'" class="border w-full p-2 rounded-lg my-2  bg-white"
+                        placeholder="Search Brands" @input="searchBrand">
                 </div>
-                <ul class="p-1  w-full  mx-2 max-h-72  overflow-auto scrollbar-thin scrollbar-thumb-yellow-300 scrollbar-track-gray-200 ">
+                <!-- Check Filter -->
+                <ul v-if="key==='Brand'"
+                    class="p-1  w-full  mx-2 max-h-72  overflow-auto scrollbar-thin scrollbar-thumb-yellow-300 scrollbar-track-gray-200 ">
+                    <li class=" p-1 flex items-center" v-for="i in filtered_brands" :key="i">
+                        <left-filter-side-item :item="i" @filterFunc="checkedFunc" @unFilterFunc="unCheckedFunc" />
+                    </li>
+                </ul>
+
+                <ul v-else
+                    class="p-1  w-full  mx-2 max-h-72  overflow-auto scrollbar-thin scrollbar-thumb-yellow-300 scrollbar-track-gray-200 ">
                     <li class=" p-1 flex items-center" v-for="i in value" :key="i">
                         <left-filter-side-item :item="i" @filterFunc="checkedFunc" @unFilterFunc="unCheckedFunc" />
                     </li>
                 </ul>
 
             </div>
-
         </div>
-
     </div>
 </template>
 
 <script setup>
-
-import { ref, computed } from 'vue';
-
+import { ref, computed, onMounted } from 'vue';
 import LeftFilterSideItem from './LeftFilterSideItem.vue';
-
 import productStore from '../../store/product'
 const store = productStore();
+const filter = computed(() => store.GETFILTERS)
+// const filtered_brands = ref([]);
+const filtered_brands = ref([]);
+const brands = computed(() => {
+    return filter.value.Brand;
+});
+const searchBrand = (el) => {
+        filtered_brands.value = brands.value;
+        filtered_brands.value = filtered_brands.value.filter((item) => item.includes(el.target.value));
+}
 
-const filter = computed(() => {
-    return store.GETFILTERS;
-})
+
 
 //************************************************* Phone Names Checked List **********************************************/
 const checked_list = ref([]);
-const checkedFunc = (name) => {
-    checked_list.value.push(name);
-    console.log('clicked', checked_list.value);
-}
-const unCheckedFunc = (name) => {
-    console.log('unclicked', name);
-}
+const checkedFunc = (name) => { checked_list.value.push(name); }
+const unCheckedFunc = (name) => console.log('unclicked', name);
 //*************************************************************************************************************************/
 
-//************************************************* Phone Names List *******************************************************/
-const filtered_brands = ref([]);
-const searchBrand = (els) => {
-    if (filtered_brands.value.length === 0 && els.target.value.length === 0)
-        filtered_brands.value = phone_name_list.value;
-    else
-        filtered_brands.value = phone_name_list.value.filter((item) => item.includes(els.target.value))
-}
-let phone_name_list = ref(['Apple', 'Samsung', 'Huawei', 'Xiaomi', 'Nokia', 'Realma', 'Asus', 'Blackberry', 'Alcatel', 'Acer', 'Google', 'Honor', 'Hisense', 'HOMTOM', 'Itel', 'HTC'])
-filtered_brands.value = phone_name_list.value;
-//*************************************************************************************************************************/
 
 </script>
 
