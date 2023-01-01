@@ -15,17 +15,6 @@
                 </div>
             </div>
 
-                <!-- <ul v-if="filtered_brands.length===0">
-                    <li v-for="i in brands">
-                        {{ i }}
-                    </li>
-                </ul>
-                <ul v-else>
-                    <li v-for="i in filtered_brands">
-                        {{ i }}
-                    </li>
-                </ul> -->
-
             <div class="w-full my-3 bg-white" v-for="(value, key) in filter">
                 <!-- Search Filter -->
                 <div class="sticky top-0 bg-white">
@@ -54,16 +43,21 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watchEffect } from 'vue';
 import LeftFilterSideItem from './LeftFilterSideItem.vue';
 import productStore from '../../store/product'
 const store = productStore();
-const filter = computed(() => store.GETFILTERS)
-// const filtered_brands = ref([]);
+const filter = ref([]);
+
+const brands = ref([]);
 const filtered_brands = ref([]);
-const brands = computed(() => {
-    return filter.value.Brand;
-});
+
+watchEffect(()=>{
+    filter.value = store.GETFILTERS; 
+    filtered_brands.value = filter.value.Brand;
+    brands.value = filter.value.Brand
+})
+
 const searchBrand = (el) => {
         filtered_brands.value = brands.value;
         filtered_brands.value = filtered_brands.value.filter((item) => item.includes(el.target.value));

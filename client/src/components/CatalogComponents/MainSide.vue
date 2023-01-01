@@ -36,18 +36,11 @@ import CardItem from '../CardItemTemp.vue';
 import productStore from '../../store/product'
 const store = productStore();
 
-//********************************************************* Creating Props ******************************************/
-const props = defineProps(['category_name']);
-//********************************************************************************************************************/
 
 //********************************************************* Fetch Documents ******************************************/
-//Get All Data
-onMounted(async () => {
-    await store.FETCHPRODUCTS(props.category_name);
-})
+
 //Show On Client Side
 const products = computed(() => {
-    // setTimeout(() => { }, 3000)
     return store.GETPRODUCTS;
 })
 
