@@ -7,7 +7,7 @@ import ProductController from "../controllers/product.js";
 router.post('/insert',ProductController.insertProduct);
 
 router.get('/:catalog_name', ProductController.fetchAllDocument);
-// router.get('/:id',ProductController.fetchById);
+
 
 
 export default router;

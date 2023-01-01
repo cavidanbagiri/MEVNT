@@ -7,14 +7,21 @@ import PhoneSchema from "../models/phones_sub_document.js";
 class ProductService {
 
   //Fetch Documents According to Catalog Name 
-  static async fetchAllDocument(catalog_name){  
+  static async fetchAllDocument(catalog_name, query){  
     //Find Catalog Id From Category Collection
     const catalog = await this.findCatalogId(catalog_name);
-    //Find Document With CatalogId
-    const products = await ProductSchema.find({
-      CategoryId:catalog
-    })
-    .populate('ProductId')
+    let products = null;
+    //If is there  Query , find method work else all product return back
+    if(Object.keys(query).length){
+      products = await ProductSchema.find(query)
+      .populate('ProductId')
+    }
+    else{
+      products = await ProductSchema.find({
+        CategoryId:catalog
+      })
+      .populate('ProductId')
+    }
     return products;
   }
 
@@ -24,7 +31,6 @@ class ProductService {
     const category = await CategorySchema.findOne({
       category_name : catalog_name
     });
-    console.log('category : ',category);
     return category;
   }
 

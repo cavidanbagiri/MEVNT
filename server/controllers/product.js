@@ -6,24 +6,22 @@ class ProductController {
     try {
       //There are 2 Dynamic Id and always work first one is catalog name and second is id
       let catalog_name = req.params.catalog_name;
-      //if start with 6
+      //if start with 6 this is find ID
       if (catalog_name[0] === "6") {
         //find by id work
         await ProductService.fetchById(catalog_name)
           .then((respond) => {
-            console.log("Fetch product respond is : ", respond);
             return res.send(respond);
           })
           .catch((err) => {
             console.log("Fetch Product Error : ", err);
-            res.json({ "Fetch Product Error ": err });
+            return res.json({ "Fetch Product Error ": err });
           });
           return ;
       }
-      console.log("cat name : ", catalog_name);
-      ProductService.fetchAllDocument(catalog_name)
+      // console.log('query is : ',req.query);
+      ProductService.fetchAllDocument(catalog_name, req.query)
         .then((respond) => {
-          console.log("Fetch respond is : ", respond);
           res.send(respond);
         })
         .catch((err) => {
