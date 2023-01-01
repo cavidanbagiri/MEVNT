@@ -17,17 +17,16 @@ import { ref } from 'vue';
 //Initialization All Must Be False
 const checked = ref(false)
 
-const props = defineProps(['item']);
+const props = defineProps(['item', 'filt_object']);
 const emit = defineEmits(['filterFunc', 'unFilterFunc']);
 
 
 const checkboxCond = () => {
     if(checked.value){
-        emit('filterFunc', props.item);
+        emit('filterFunc', props.filt_object, props.item);
     }else{
-        emit('unFilterFunc', props.item);
+        emit('unFilterFunc', props.filt_object, props.item);
     }
-    //checked.value ? emit('filterFunc', props.item) : emit('unFilterFunc', props.item);
 }
 
 </script>

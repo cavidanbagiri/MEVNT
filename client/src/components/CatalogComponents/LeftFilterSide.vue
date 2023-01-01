@@ -26,14 +26,14 @@
                 <ul v-if="key==='Brand'"
                     class="p-1  w-full  mx-2 max-h-72  overflow-auto scrollbar-thin scrollbar-thumb-yellow-300 scrollbar-track-gray-200 ">
                     <li class=" p-1 flex items-center" v-for="i in filtered_brands" :key="i">
-                        <left-filter-side-item :item="i" @filterFunc="checkedFunc" @unFilterFunc="unCheckedFunc" />
+                        <left-filter-side-item :item="i" :filt_object="key" @filterFunc="checkedFunc" @unFilterFunc="unCheckedFunc" />
                     </li>
                 </ul>
 
                 <ul v-else
                     class="p-1  w-full  mx-2 max-h-72  overflow-auto scrollbar-thin scrollbar-thumb-yellow-300 scrollbar-track-gray-200 ">
                     <li class=" p-1 flex items-center" v-for="i in value" :key="i">
-                        <left-filter-side-item :item="i" @filterFunc="checkedFunc" @unFilterFunc="unCheckedFunc" />
+                        <left-filter-side-item :item="i" :filt_object="key" @filterFunc="checkedFunc" @unFilterFunc="unCheckedFunc" />
                     </li>
                 </ul>
 
@@ -43,10 +43,28 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 import LeftFilterSideItem from './LeftFilterSideItem.vue';
 import productStore from '../../store/product'
 const store = productStore();
+
+
+//************************************************* Phone Names Checked List **********************************************/
+const checked_list = ref([]);
+const checkedFunc = (filt_object, item) => {
+    let url = {};
+    url[filt_object] = item;
+    checked_list.value.push(url);
+    store.FETCHPRODUCTWITHFILTEROBJECT(checked_list);
+
+}
+const unCheckedFunc = (item,filt_object) => {
+
+    // checked_list.value = checked_list.value.filter((item)=>item!==name);
+    // console.log('list after dele ',checked_list.value);
+}
+//*************************************************************************************************************************/
+
 const filter = ref([]);
 
 const brands = ref([]);
@@ -63,13 +81,6 @@ const searchBrand = (el) => {
         filtered_brands.value = filtered_brands.value.filter((item) => item.includes(el.target.value));
 }
 
-
-
-//************************************************* Phone Names Checked List **********************************************/
-const checked_list = ref([]);
-const checkedFunc = (name) => { checked_list.value.push(name); }
-const unCheckedFunc = (name) => console.log('unclicked', name);
-//*************************************************************************************************************************/
 
 
 </script>

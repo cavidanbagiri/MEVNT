@@ -27,6 +27,7 @@ const productStore = defineStore("ProductStore", {
     //Fetch All Products With Category Name
     async FETCHPRODUCTS(category_name) {
       category_name = category_name[0].toUpperCase() + category_name.slice(1);
+      this.category_name = category_name;
       await axios
         .get(`http://localhost:3000/product/${category_name}`)
         .then(async (respond) => {
@@ -63,6 +64,27 @@ const productStore = defineStore("ProductStore", {
           console.log("fetch One Product Id Return Back TO An Error : ", err);
         });
     },
+    //Filter Product With Filtered Object
+    async FETCHPRODUCTWITHFILTEROBJECT(filt_object){
+      //Get All Url
+      let url = `http://localhost:3000/product/${this.category_name}`;
+      //Create Query
+      if(filt_object.value.length > 0 ){
+        url+='?';
+        console.log('yes');
+        for(let i in filt_object.value){
+          for (const [key, value] of Object.entries(filt_object.value[i])) {
+            url += key+"="+value;
+          }
+          i++;
+          if(i<filt_object.value.length){
+            url+="&";
+          }
+        }
+        console.log(url);
+      }
+      
+    }
   },
 });
 
