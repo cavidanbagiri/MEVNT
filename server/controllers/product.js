@@ -2,7 +2,7 @@ import ProductService from "../services/product.js";
 
 class ProductController {
   //Fetch Documents According to Catalog Name
-  static async fetchAllDocument(req, res) {
+  static async fetchAllDocument(req, res,next) {
     try {
       //There are 2 Dynamic Id and always work first one is catalog name and second is id
       let catalog_name = req.params.catalog_name;
@@ -19,7 +19,6 @@ class ProductController {
           });
           return ;
       }
-      // console.log('query is : ',req.query);
       ProductService.fetchAllDocument(catalog_name, req.query)
         .then((respond) => {
           res.send(respond);

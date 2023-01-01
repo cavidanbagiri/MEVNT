@@ -61,9 +61,6 @@ class ProductService {
     const products = JSON.parse(data);
     for await (let i of products.results) {
       total++;
-      // if(total===1 || total===2){
-      //   continue
-      // }
       delete i["objectId"];
       delete i["Cell_Phone_Brands"];
       delete i["Cell_Phone_Models"];

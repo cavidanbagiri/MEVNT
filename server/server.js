@@ -39,6 +39,12 @@ app.use(
 app.use("/user", UserRouter);
 app.use("/product", ProductRouter);
 
+//Error Handler
+// app.use((err, req, res, next)=>{
+//   console.log('global');
+//   res.status(500).send({ "Global Fetch Error ": err });
+// });
+
 app.listen(3000, () => {
   console.log("listening");
 });
