@@ -5,6 +5,7 @@ const app = express();
 import "./config/index.js";
 import "./loaders/db.js";
 import cors from "cors";
+import errorHandler from "./middlewares/errorHandler.js";
 
 import cookieParser from "cookie-parser";
 
@@ -40,10 +41,7 @@ app.use("/user", UserRouter);
 app.use("/product", ProductRouter);
 
 //Error Handler
-// app.use((err, req, res, next)=>{
-//   console.log('global');
-//   res.status(500).send({ "Global Fetch Error ": err });
-// });
+app.use(errorHandler);
 
 app.listen(3000, () => {
   console.log("listening");
