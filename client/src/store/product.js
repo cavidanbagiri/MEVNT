@@ -80,6 +80,7 @@ const productStore = defineStore("ProductStore", {
             url+="&";
           }
         }
+        console.log('url : ',url);
         await axios.get(url).then(async(respond)=>{
           this.products = await respond.data;
         }).catch((err)=>{
