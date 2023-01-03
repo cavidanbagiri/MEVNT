@@ -1,6 +1,9 @@
 import express from "express";
 const app = express();
 
+// import cluster from "cluster";
+// import os from 'os';
+
 //Dotenv and DB Loaders
 import "./config/index.js";
 import "./loaders/db.js";
@@ -43,6 +46,16 @@ app.use("/product", ProductRouter);
 //Error Handler
 app.use(errorHandler);
 
-app.listen(3000, () => {
-  console.log("listening");
-});
+
+// if(cluster.isPrimary){
+//   console.log('Master Start TO Work : ',os.cpus().length);
+//   for(let i = 0 ; i< os.cpus().length;i++){
+//     cluster.fork();
+//   }
+// } 
+// else{
+//   console.log('worker process started');
+// }
+
+//Start Node Project
+app.listen(3000, () => {console.log("listening");});

@@ -1,8 +1,6 @@
 
 import mongoose from "mongoose";
 
-import PhoneSchema from "./phones_sub_document.js";
-
 const productSchema = new mongoose.Schema(
   {
     CategoryId: { type: mongoose.Types.ObjectId, ref: "categories" },

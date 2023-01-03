@@ -22,8 +22,6 @@ class ProductController {
       tryCatch(
         await ProductService.fetchAllDocument(catalog_name, req.query)
           .then((respond) => {
-            // throw AppError.BadRequest("Bad Request By Me", 300);
-            // throw new Error('Another Error');
             res.send(respond);
           })
           .catch((err) => {
