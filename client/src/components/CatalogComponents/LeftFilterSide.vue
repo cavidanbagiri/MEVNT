@@ -1,6 +1,4 @@
 
-
-
 <template>
     <div class="col-span-3  flex justify-start mt-3 h-screen p-2 ">
 
@@ -22,7 +20,8 @@
                     <input v-if="key === 'Brand'" class="border w-full p-2 rounded-lg my-2  bg-white"
                         placeholder="Search Brands" @input="searchBrand">
                 </div>
-                <!-- Check Filter -->
+
+                <!-- Brand and Check Filter -->
                 <ul v-if="key === 'Brand'"
                     class="p-1  w-full  mx-2 max-h-72  overflow-auto scrollbar-thin scrollbar-thumb-yellow-300 scrollbar-track-gray-200 ">
                     <li class=" p-1 flex items-center" v-for="i in filtered_brands" :key="i">
@@ -31,6 +30,19 @@
                     </li>
                 </ul>
 
+                <!-- Colors Section -->
+                <div v-else-if="key === 'Colors'"
+                    class="p-1  w-full flex flex-wrap  mx-2 max-h-72  overflow-auto scrollbar-thin scrollbar-thumb-yellow-300 scrollbar-track-gray-200 ">
+                    <div v-for="name in names" class="flex flex-wrap">
+                        <template v-for="i in value">
+                            <div v-if="i === name" :style="{ 'background-color': i }"
+                                class=" border-2 border-black m-1 p-6 rounded-full flex flex-wrap">
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Others Section -->
                 <ul v-else
                     class="p-1  w-full  mx-2 max-h-72  overflow-auto scrollbar-thin scrollbar-thumb-yellow-300 scrollbar-track-gray-200 ">
                     <li class=" p-1 flex items-center" v-for="i in value" :key="i">
@@ -48,7 +60,10 @@
 import { ref, watchEffect } from 'vue';
 import LeftFilterSideItem from './LeftFilterSideItem.vue';
 import productStore from '../../store/product'
+import names from '../../constants/colors';
+
 const store = productStore();
+
 
 
 
@@ -65,12 +80,12 @@ const checkedFunc = (filt_object, item) => {
 }
 const unCheckedFunc = (filt_object, item) => {
     let temp_arr = [];
-    for(let i in checked_list.value){
-        for(let [key, value] of Object.entries(checked_list.value[i])){
-            if(key === filt_object && value === item){
+    for (let i in checked_list.value) {
+        for (let [key, value] of Object.entries(checked_list.value[i])) {
+            if (key === filt_object && value === item) {
                 continue;
             }
-            else{
+            else {
                 temp_arr.push(checked_list.value[i]);
             }
         }

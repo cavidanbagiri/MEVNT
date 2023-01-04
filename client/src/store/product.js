@@ -36,7 +36,17 @@ const productStore = defineStore("ProductStore", {
           await this.FETCHONEPRODUCTFORFILTERS(this.products[0].ProductId._id);
           for await (let i of this.products) {
             for await (let j of Object.keys(this.filters_key)) {
-              this.filters_key[j].add(i.ProductId[j]);
+              if(j==='Colors'){
+                //Colors in Array and foreach for colors array and add inside of colors section
+                for(let e of i.ProductId[j]){
+                  e = e[0].toLowerCase() + e.slice(1);
+                  this.filters_key[j].add(e);
+                }
+                continue
+              }
+              else{
+                this.filters_key[j].add(i.ProductId[j]);
+              }
             }
           }
           let temp = [];
@@ -44,6 +54,7 @@ const productStore = defineStore("ProductStore", {
             temp.push(i);
           }
           this.filters_key.Brand = temp;
+          console.log(this.filters_key);
           return this.products;
         })
         .catch((err) => {
