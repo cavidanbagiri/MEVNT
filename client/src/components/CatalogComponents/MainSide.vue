@@ -2,13 +2,18 @@
 <template>
     <div class="col-span-9  flex-col justify-start mt-3">
 
+        <div class="mx-2 my-5">
+            <span class=" mx-3  text-blue-800 text-md hover:underline-offset-1 hover:underline hover:cursor-pointer " >sort by price</span> 
+            <span class=" mx-3  text-blue-800 text-md hover:underline-offset-1 hover:underline hover:cursor-pointer " >sort by raiting</span>
+            <span class=" mx-3  text-blue-800 text-md hover:underline-offset-1 hover:underline hover:cursor-pointer " >sort by discount</span>
+        </div>
+
         <div class="flex flex-wrap justify-between">
-            <!-- <template v-for="i in end" :key="i">
-                <card-item v-if="i >= start && i <= end" :itemnum="i"></card-item>
-            </template> -->
+            
+
 
             <template v-if="products.length">
-                <div v-for="i in products" :key="i._id">
+                <div v-for="i in products" :key="i._id" >
                     <card-item :item="i"></card-item>
                 </div>
             </template>

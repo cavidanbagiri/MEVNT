@@ -54,7 +54,6 @@ const productStore = defineStore("ProductStore", {
             temp.push(i);
           }
           this.filters_key.Brand = temp;
-          console.log(this.filters_key);
           return this.products;
         })
         .catch((err) => {

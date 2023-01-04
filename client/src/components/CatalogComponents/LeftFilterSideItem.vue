@@ -1,11 +1,11 @@
 
 <template>
-    <div>
+    <div v-if="props.item">
 
         <input class="mr-2 w-4 h-4 text-blue-600 bg-yellow-300 rounded border-yellow-300  dark:ring-offset-yellow-300 focus:ring-2" 
         v-model="checked" @change="checkboxCond"
         type="checkbox">
-        <span class="text-sm">{{props.item}}</span>
+        <span class="text-md">{{props.item}}</span>
 
     </div>
 </template>

@@ -1,18 +1,18 @@
 <template>
-    <div :class="getval ? 'canvas_open' : 'canvas_close' " 
-    class="w-9/12 h-auto grid grid-cols-12 z-20 absolute top-14 left-0 gap-1 bg-white" 
-        
-    >
+    <div :class="getval ? 'canvas_open' : 'canvas_close'"
+        class="w-9/12 h-auto grid grid-cols-12 z-20 absolute top-14 left-0 gap-1 bg-white">
         <div class="col-span-3  flex flex-col justify-start h-screen mr-3 ">
             <p class="text-xl font-bold pl-1 lg:pl-5 mt-2">Catalog</p>
             <ul class="pl-1 lg:pl-5 mt-3  overflow-auto ">
-                <router-link to="/">
-                    <li class="my-1 text-black py-1 text-md hover:bg-yellow-100" 
-                    @click="defineToggleEmits" @mouseover="mouseHover"
-                        @mouseleave="mouseLeave" v-for="i in catalog">
+                <li class="my-1 text-black py-1 text-md hover:bg-yellow-100" @click="defineToggleEmits"
+                    @mouseover="mouseHover" @mouseleave="mouseLeave" v-for="i in catalog">
+                    
+                        <router-link  :to="{ name:'Catalog', params:{category_name: `${Object.keys(i)[0]}` } }">
+                        <!-- <router-link  :to="/catalog/`${Object.keys(i)[0]}`"> -->
                         {{ Object.keys(i)[0] }}
-                    </li>
-                </router-link>
+                    </router-link>
+
+                </li>
             </ul>
         </div>
         <div class="col-span-9">
@@ -34,7 +34,7 @@ import canvasChecking from '../store';
 const store = canvasChecking();
 
 const prop = defineProps(['toggle_value']);
-const getval = computed(()=>{
+const getval = computed(() => {
     return store.canvas_toggle;
 })
 //************************************************************************************************************/
@@ -43,7 +43,7 @@ const getval = computed(()=>{
 
 //********************************************** Select Catalog **********************************************/
 const catalog = [
-    { 'Smartphones': ['IPhone', 'Samsung', 'Huawei', 'Nokia', 'Xiaomi'] },
+    { 'Phones': ['IPhone', 'Samsung', 'Huawei', 'Nokia', 'Xiaomi'] },
     { 'Books': ['Darvin', 'Pamuk', 'Fidel', 'Hitler', 'Quran'] },
     { 'Electronics': ['IPhone', 'Samsung', 'Huawei', 'Nokia', 'Xiaomi'] },
     { 'Notebooks': ['IPhone', 'Samsung', 'Huawei', 'Nokia', 'Xiaomi'] },
@@ -80,19 +80,15 @@ const mouseHover = (item) => {
 
 <style scoped>
 .canvas_open {
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
     transition: 0.6s all ease;
 }
 
 .canvas_close {
-    transform: translate3d(-100%,0,0);
+    transform: translate3d(-100%, 0, 0);
     transition: 0.6s all ease;
-    
+
 }
-
-
-
-
 </style>
 
 
