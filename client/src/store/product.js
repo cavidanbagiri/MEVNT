@@ -29,7 +29,7 @@ const productStore = defineStore("ProductStore", {
       category_name = category_name[0].toUpperCase() + category_name.slice(1);
       this.category_name = category_name;
       await axios
-        .get(`http://localhost:3000/product/${category_name}`)
+        .get(`/api/product/${category_name}`)
         .then(async (respond) => {
           //Take All Products
           this.products = await respond.data;
