@@ -2,8 +2,8 @@ import fs from "fs";
 
 import ProductSchema from "../models/products.js";
 import CategorySchema from "../models/categories.js";
-import PhoneSchema from "../models/phonesSchema.js";
-import mongoose from "mongoose";
+import PhonesSchema from "../models/phonesSchema.js";
+// import mongoose from "mongoose";
 
 class ProductService {
   
@@ -15,30 +15,33 @@ class ProductService {
     let products = null;
     //If is there  Query , find method work else all product return back
     if (Object.keys(query).length) {
-    products = await ProductSchema.find(query).populate("ProductId");
-
-    //Get Same Result With Aggregation
-    //   products = await ProductSchema.aggregate([
-    //     {
-    //       // $match: {'Brand':'HTC'}
-    //       $match: {_id:mongoose.Types.ObjectId('63af5e00c3e3123f5f5301a6')}
-    //     },
-    //     {
-    //       $lookup:{
-    //         from: 'phones',
-    //         localField:'ProductId',
-    //         foreignField: '_id',
-    //         as: 'products'
-    //       }
-    //     }
-    //   ])
-    //  console.log(products[0]);
-    
+      products = await this.fetchFromSubDocument(catalog_name, query);
     } else {
       products = await ProductSchema.find({
         CategoryId: catalog,
       }).populate("ProductId");
     }
+    return products;
+  }
+
+  //Fetch From Sub Document With According Collection
+  static async fetchFromSubDocument(catalog_name, query){
+    let schemaName = catalog_name+'Schema';
+    let findings = [];
+    //Find Catalog Name and get filters inside of according to subcollection and find inside of ProductSchema
+    switch(schemaName){
+      case 'ComputerSchema':
+        console.log('insert also computer');
+        break;
+      case 'PhonesSchema':
+        findings = await PhonesSchema.find(query);
+        break;
+    }
+    let products = await ProductSchema.find({
+      ProductId:{
+        $in: findings
+      }
+    })
     return products;
   }
 
@@ -88,7 +91,7 @@ class ProductService {
       await somes?.filter((item) => colors.push(item.trim())); //Add Colors in Colors Array
       i["Colors"] = colors;
       //Create One Phone Document
-      const new_Phone = await new PhoneSchema(i);
+      const new_Phone = await new PhonesSchema(i);
       new_Phone.save();
       //Find Category From Category Schema
       const category_doc = await CategorySchema.findOne({

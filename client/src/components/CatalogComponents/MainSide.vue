@@ -30,7 +30,7 @@
 
 <script setup>
 
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watchEffect } from 'vue';
 import PaginationComp from './PaginationComp.vue';
 import CardItem from '../CardItemTemp.vue';
 import productStore from '../../store/product'
@@ -38,12 +38,15 @@ const store = productStore();
 
 
 //********************************************************* Fetch Documents ******************************************/
-
+const products = ref([]);
 //Show On Client Side
-const products = computed(() => {
-    return store.GETPRODUCTS;
-})
+// const products = computed(() => {
+//     return store.GETPRODUCTS;
+// })
 
+watchEffect(()=>{
+    products.value = store.GETPRODUCTS;
+})
 //********************************************************************************************************************/
 
 

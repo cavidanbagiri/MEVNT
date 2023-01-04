@@ -51,12 +51,15 @@ import productStore from '../../store/product'
 const store = productStore();
 
 
+
+
 //************************************************* Phone Names Checked List **********************************************/
 const checked_list = ref([]);
 const checkedFunc = (filt_object, item) => {
     let url = {};
     url[filt_object] = item;
     checked_list.value.push(url);
+    console.log('after delay work');
     store.FETCHPRODUCTWITHFILTEROBJECT(checked_list);
 
 }
