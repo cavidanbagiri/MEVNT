@@ -15,6 +15,7 @@ class ProductService {
     let products = null;
     //If is there  Query , find method work else all product return back
     if (Object.keys(query).length) {
+      //Find inside of subdocument
       products = await this.fetchFromSubDocument(catalog_name, query);
     } else {
       products = await ProductSchema.find({
