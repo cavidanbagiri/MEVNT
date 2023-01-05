@@ -11,9 +11,29 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    confirmed:{
-        type:Boolean,
-        default: false
+    favorites:{
+        type: [],
+        default :[]
+    },
+    basket:{
+        type: [],
+        default :[]
+    },
+    orders:{
+        type: [],
+        default :[]
+    },
+    coupons:{
+        type: [],
+        default :[]
+    },
+    refund:{
+        type: [],
+        default :[]
+    },
+    cards:{
+        type: [],
+        default :[]
     },
     isAdmin:{
         type:Boolean,

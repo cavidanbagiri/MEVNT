@@ -20,7 +20,6 @@ class UserController {
   //Register User
   static async registerUser(req, res) {
     try {
-      
       const user = req.body;
       user.password = await hashPassword(user.password);
       //Send First Token After First Registration and send sevice for saving tokenschema
