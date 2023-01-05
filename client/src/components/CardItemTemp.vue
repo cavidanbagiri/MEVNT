@@ -2,9 +2,10 @@
 <template>
     <div class="flex flex-col w-60 h-auto mt-2 hover:shadow-2xl mx-2 mb-10 hover:scale-105 hover:rounded-xl transition ease-in-out delay-150">
         <router-link to="/">
-            <div>
+            <div class="relative">
                 <!-- <img class="h-64 w-full m-0 p-0" src="https://basket-08.wb.ru/vol1131/part113161/113161794/images/c246x328/1.jpg" alt=""> -->
                 <img class="h-60 w-full m-0 p-0" :src="props.item.Thumbnail" alt="">
+                <i class="fa-regular fa-heart fa-xl absolute top-5 right-0 text-yellow-400 "></i>
             </div>
             <div class="pl-2 my-1 flex  items-center">
                 <span class="bg-red-500 ml-2 text-xs rounded-lg text-white font-bold px-2">%{{ props.item.Discount }}</span>
@@ -26,8 +27,8 @@
                 <span class="text-sm text-slate-400 text-start"><span class="text-black">Model</span>  {{ props.item.Model }}</span>
             </div>
             <div class="my-2 flex  items-center justify-start px-3">
-                <button class="bg-yellow-400 text-white w-full py-2 rounded-md transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-105 hover:opacity-50 hover:bg-yellow-400 duration-300">
-                    Add
+                <button @click="addBasket" class="bg-yellow-400 text-white w-full py-2 rounded-md transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-105 hover:opacity-50 hover:bg-yellow-400 duration-300">
+                    Add Basket
                 </button>
             </div>
         </router-link>
@@ -36,8 +37,15 @@
 
 <script setup>
 
-    const props = defineProps(['item']);
+    import userStore from '../store/user';
+    const store = userStore();
 
+    const props = defineProps(['item']);
+    const addBasket = () => {
+        //props.item._id
+        store.addBasket(props.item);
+        // store.getUser();
+    }
 
 
 </script>

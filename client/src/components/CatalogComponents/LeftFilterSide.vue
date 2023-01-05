@@ -36,7 +36,7 @@
                     <div v-for="name in names" class="flex flex-wrap">
                         <template v-for="i in value">
                             <div v-if="i === name" :style="{ 'background-color': i }"
-                                class=" border-2 border-black m-1 p-6 rounded-full flex flex-wrap">
+                                class=" border-2 border-black m-1 p-5 rounded-full flex flex-wrap">
                             </div>
                         </template>
                     </div>

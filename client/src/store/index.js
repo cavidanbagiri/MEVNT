@@ -21,6 +21,10 @@ const canvasChecking = defineStore('toggle_checking',{
         },
         CANVASTOGGLE(){
             this.canvas_toggle = !this.canvas_toggle;
+        },
+        CLOSEMODAL(){
+            this.login_register_modal_toggle = false;
+            this.canvas_toggle = false;
         }
     }
 

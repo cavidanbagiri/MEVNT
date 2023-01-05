@@ -27,7 +27,7 @@
             </div>
             <div class="my-2 flex  items-center justify-start px-3">
                 <button class="bg-yellow-400 text-white w-full py-1 rounded-md transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-105 hover:opacity-50 hover:bg-yellow-400 duration-300">
-                    Add
+                    Add Basket
                 </button>
             </div>
         </router-link>

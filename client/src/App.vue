@@ -23,6 +23,8 @@ import LoginRegisterModal from './components/UserComponents/LoginRegisterModal.v
 import CanvasVue from './components/Canvas.vue';
 
 
+
+
 </script>
 
 

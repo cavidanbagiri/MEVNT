@@ -27,22 +27,25 @@ const userStore = defineStore("user_store", {
       axios
         .post("http://localhost:3000/user/login", user_data)
         .then((respond) => {
-          // console.log('user login By Vue : ',respond);
           localStorage.setItem("token", respond.data.token);
+          delete respond.data.user.password;
+          delete respond.data.user.cards;
           this.current_user = respond.data.user;
-          console.log(this.current_user);
         })
         .catch((err) => {
           console.log("Login Error By Vue");
         });
     }, //Call Refresh Token
     async refreshToken() {
-      axios.get("http://localhost:3000/user/refresh").then((respond)=>{
-        console.log('refresh respond is : ',respond);
-        localStorage.setItem("token", respond.data.token);
-      }).catch((err)=>{
-        console.log('wrong token');
-      });
+      axios
+        .get("http://localhost:3000/user/refresh")
+        .then((respond) => {
+          console.log("refresh respond is : ", respond);
+          localStorage.setItem("token", respond.data.token);
+        })
+        .catch((err) => {
+          console.log("wrong token");
+        });
     },
     //Check Token
     async getUser() {
@@ -56,15 +59,34 @@ const userStore = defineStore("user_store", {
           console.log("get after token: ", respond);
         })
         .catch((err) => {
-            console.log('status : ',err.response.status);
-            if(err.response.status===401){
-                this.refreshToken();
-            }
-            else{
-                console.log('none');
-            }  console.log("Token Error By Vue s: ", err);
+          console.log("status : ", err.response.status);
+          if (err.response.status === 401) {
+            this.refreshToken();
+          } else {
+            console.log("none");
+          }
+          console.log("Token Error By Vue s: ", err);
         });
     },
+    //Add Basket
+    async addBasket(product) {
+      console.log("adding product is : ", product);
+      const token = localStorage.getItem("token");
+      console.log("token is : ", token);
+      axios
+        .get("http://localhost:3000/user/addbasket/" + product._id, {
+          headers: { authorization: `Bearer ${token}` },
+        })
+        .then((respond) => {
+          console.log("vue side : ", respond);
+        })
+        .catch((err) => {
+          console.log("axios error for addbasket product : ", err);
+        });
+    },
+  },
+  persist: {
+    enabled: true,
   },
 });
 
