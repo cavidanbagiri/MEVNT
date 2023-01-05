@@ -8,7 +8,7 @@ const hashPassword = async (data) => {
 };
 
 const generateToken = async (data) => {
-  const token = sign({ data }, "generate",{expiresIn:'15m'});
+  const token = sign({ data }, "generate",{expiresIn:'1h'});
   return token;
 };
 
