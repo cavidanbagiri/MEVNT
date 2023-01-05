@@ -4,6 +4,7 @@ const { verify } = pkg;
 
 const authorizationFunc = (req, res, next) => {
     const token = req?.headers['authorization']?.split(' ')[1];
+    console.log('token is from : ',token);
     if(!token){
         console.log('User Not Log In');
         res.status(403).json({'JWT Error Not Token : ':err});

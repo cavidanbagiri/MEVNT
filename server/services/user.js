@@ -1,6 +1,8 @@
 
 import User from '../models/user.js';
 import UserToken from '../models/token_schema.js';
+import ProductSchema from '../models/products.js';
+import mongoose from 'mongoose';
 
 class TokenService{
     static async createRefreshToken(user, access_token){
@@ -48,6 +50,19 @@ class UserServices{
         console.log('user id : ',user_id);
         const finding_user = await User.findById(user_id);
         return finding_user; 
+    }
+
+    //Add Product to
+    static async addBasket(product_id, user_email){
+        console.log('product id : ',product_id,' ',user_email);
+        const product = await ProductSchema.findById(mongoose.Types.ObjectId(product_id));
+        const user = await User.findOne({
+            email:user_email
+        });
+        await user.favorites.push(product);
+        user.save();
+        console.log('product is : ',product,' user : ',user);
+        return 1;
     }
 
 }
