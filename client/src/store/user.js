@@ -4,9 +4,7 @@ axios.defaults.withCredentials = true;
 
 const userStore = defineStore("user_store", {
   state: () => ({
-    current_user: {
-      masin: "123",
-    },
+    current_user: null
   }),
   getters: {},
   actions: {
@@ -31,6 +29,7 @@ const userStore = defineStore("user_store", {
           delete respond.data.user.password;
           delete respond.data.user.cards;
           this.current_user = respond.data.user;
+          sessionStorage.setItem('user',JSON.stringify(this.current_user));
         })
         .catch((err) => {
           console.log("Login Error By Vue");
@@ -84,9 +83,20 @@ const userStore = defineStore("user_store", {
           console.log("axios error for addbasket product : ", err);
         });
     },
-  },
-  persist: {
-    enabled: true,
+    //Add Basket
+    async addFavorite(product) {
+      const token = localStorage.getItem("token");
+      axios
+        .get("http://localhost:3000/user/addfavorite/" + product._id, {
+          headers: { authorization: `Bearer ${token}` },
+        })
+        .then((respond) => {
+          console.log("vue side : ", respond);
+        })
+        .catch((err) => {
+          console.log("axios error for addfavorite product : ", err);
+        });
+    },
   },
 });
 

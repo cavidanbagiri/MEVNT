@@ -5,7 +5,7 @@
             <div class="relative">
                 <!-- <img class="h-64 w-full m-0 p-0" src="https://basket-08.wb.ru/vol1131/part113161/113161794/images/c246x328/1.jpg" alt=""> -->
                 <img class="h-60 w-full m-0 p-0" :src="props.item.Thumbnail" alt="">
-                <i class="fa-regular fa-heart fa-xl absolute top-5 right-0 text-yellow-400 "></i>
+                <i class="fa-regular fa-heart fa-xl absolute top-5 right-0 text-yellow-400 " @click="addFavorites" ></i>
             </div>
             <div class="pl-2 my-1 flex  items-center">
                 <span class="bg-red-500 ml-2 text-xs rounded-lg text-white font-bold px-2">%{{ props.item.Discount }}</span>
@@ -41,10 +41,12 @@
     const store = userStore();
 
     const props = defineProps(['item']);
+
     const addBasket = () => {
-        //props.item._id
         store.addBasket(props.item);
-        // store.getUser();
+    }
+    const addFavorites = () => {
+        store.addFavorite(props.item);
     }
 
 

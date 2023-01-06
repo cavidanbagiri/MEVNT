@@ -37,15 +37,29 @@
         <!-- User Side For Any -->
         <div class="col-span-10 lg:col-span-4  flex items-center justify-around  mt-1">
             <div class="flex flex-col items-center justify-center">
-                <span><i class="fa-solid fa-tag fa-xl"></i></span>
+                <span><i class="fa-brands fa-discourse fa-xl"></i></span>
+                
                 <span class="text-xs text-gray-400">Discount</span>
             </div>
+
             <div class="flex flex-col items-center justify-center">
-                <span><i class="fa-solid fa-heart fa-xl"></i></span>
+                <span><i class="fa-brands fa-cc-diners-club fa-xl"></i></span>
+                <span class="text-xs text-gray-400">Coupons</span>
+            </div>
+
+
+            <div class="flex flex-col items-center justify-center relative">
+                <div v-if="user.favorites.length" class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full -top-2 -right-2 ">
+                    {{ user.favorites.length }}
+                </div>
+                <span><i class="fa-regular fa-heart fa-xl"></i></span>
                 <span class="text-xs text-gray-400">Favorites</span>
             </div>
-            <div class="flex flex-col items-center justify-center">
-                <span><i class="fa-solid fa-basket-shopping  fa-xl"></i></span>
+            <div class="flex flex-col items-center justify-center relative">
+                <div v-if="user.basket.length" class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full -top-2 -right-2 ">
+                    {{ user.basket.length }}
+                </div>
+                <span><i class="fa-solid fa-cart-shopping fa-xl"></i></span>
                 <span class="text-xs text-gray-400">Basket</span>
             </div>
             <div class="flex flex-col items-center justify-center " @click="openDropdown">
@@ -62,15 +76,18 @@
 
 <script setup>
 
-import { ref,computed } from 'vue';
+import { ref,computed, reactive } from 'vue';
 import UserDropdown from '../components/UserComponents/UserDropdown.vue';
 import canvasChecking from '../store';
 const store = canvasChecking();
 //********************************************** Show Hide Catalog **********************************************/
 
+const user = ref({});
+user.value = JSON.parse(sessionStorage.getItem('user'));
 const canvas_toggle = computed(()=>{
     return store.GETCANVASTOGGLE;
 });
+
 const toggleCatalog = () => {
     store.CANVASTOGGLE();
 }
