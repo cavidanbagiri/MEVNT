@@ -16,11 +16,11 @@ const userSchema = new mongoose.Schema({
         default :[]
     },
     basket:{
-        type: [],
+        type: [mongoose.Types.ObjectId],
         default :[]
     },
     orders:{
-        type: [],
+        type: [mongoose.Types.ObjectId],
         default :[]
     },
     coupons:{
@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
         default :[]
     },
     refund:{
-        type: [],
+        type: [mongoose.Types.ObjectId],
         default :[]
     },
     cards:{

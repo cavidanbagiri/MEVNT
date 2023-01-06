@@ -10,6 +10,7 @@ router.post('/signup',UserController.registerUser);
 router.post('/login',UserController.loginUser);
 router.get('/refresh', UserController.refreshToken);
 router.get('/addbasket/:id', authorizationFunc, UserController.addBasket);
+router.get('/addfavorite/:id', authorizationFunc, UserController.addFavorites);
 router.get('/', authorizationFunc, UserController.getUsers);
 
 export default router;

@@ -95,6 +95,28 @@ class UserController {
     }
   }
 
+  static async addFavorites(req, res) {
+    const product_id = req.params.id;
+    try {
+      //Before Adding basket, firstly take refreshToken from req.headers.cookies;
+      //const {refreshToken} = req.cookies;
+      //Find User with this token
+      //const user_id = await TokenService.findToken(refreshToken);
+      //Find User By Id
+      //const user_data = await UserServices.findUserById(user_id);
+      console.log('user ',req.user);
+      await UserServices.addFavorites(product_id, req.user.data.email)
+        .then((respond) => {
+          res.send(respond.data);
+        })
+        .catch((err) => {
+          console.log("Adding Product Error : ", err);
+        });
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
   //Get Users Lists If Token Valid
   static async getUsers(req, res) {
     res.send(pl);
