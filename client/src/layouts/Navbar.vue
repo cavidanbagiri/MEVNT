@@ -49,15 +49,15 @@
 
 
             <div class="flex flex-col items-center justify-center relative">
-                <div v-if="user?.favorites?.length" class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full -top-2 -right-2 ">
-                    {{ user?.favorites?.length }}
+                <div v-if="user_store.GETFAVORITESSIZE" class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full -top-2 -right-2 ">
+                    {{ user_store.GETFAVORITESSIZE }}
                 </div>
                 <span><i class="fa-regular fa-heart fa-xl"></i></span>
                 <span class="text-xs text-gray-400">Favorites</span>
             </div>
             <div class="flex flex-col items-center justify-center relative">
-                <div v-if="user?.basket?.length" class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full -top-2 -right-2 ">
-                    {{ user?.basket?.length }}
+                <div v-if="user_store.GETBASKETSIZE" class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full -top-2 -right-2 ">
+                    {{ user_store.GETBASKETSIZE }}
                 </div>
                 <span><i class="fa-solid fa-cart-shopping fa-xl"></i></span>
                 <span class="text-xs text-gray-400">Basket</span>
@@ -66,7 +66,7 @@
                 <button ><span><i class="fa-solid fa-user fa-xl"></i></span></button>
                 <button ><span class="text-xs text-gray-400">Profile</span></button>
             </div>
-            <user-dropdown :toggle_value="dropdown_value"></user-dropdown>
+            <user-dropdown :toggle_value="dropdown_value" :user_email="user?.email"></user-dropdown>
             
         </div>
 
@@ -76,15 +76,16 @@
 
 <script setup>
 
-import { ref,computed, watchEffect } from 'vue';
+import { ref,computed } from 'vue';
 import UserDropdown from '../components/UserComponents/UserDropdown.vue';
+import userStore from '../store/user';
 import canvasChecking from '../store';
 const store = canvasChecking();
+const user_store = userStore();
 //********************************************** Show Hide Catalog **********************************************/
 
 const user = ref();
 user.value = JSON.parse(sessionStorage.getItem('user'));
-
 
 
 const canvas_toggle = computed(()=>{

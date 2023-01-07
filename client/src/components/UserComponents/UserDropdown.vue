@@ -7,7 +7,7 @@
                 <img src="//avatars.mds.yandex.net/get-yapic/0/0-0/islands-retina-50" class="w-10 h-10" alt="">
                 <div class="flex flex-col mx-2">
                     <span class="font-bold text-lg">Cavidan Bagiri</span>
-                    <span class="text-gray-500 text-md">cavidanbagiri@gmail.com</span>
+                    <span class="text-gray-500 text-md">{{ prop?.user_email }}</span>
                 </div>
             </li>
             <li class="flex items-center my-4 mx-1">
@@ -18,47 +18,65 @@
                 </div>
             </li>
             <li class="my-4 mx-1 ">
-                <button class="hover:bg-yellow-100 py-2 rounded-lg w-full text-start"
+                <button class="hover:bg-yellow-100 py-1 rounded-lg w-full text-start"
                  @click="toggleLoginRegisterModal">
                     <span class="pl-1 pr-3"><i class="fa-solid fa-arrow-right-to-bracket fa-lg"></i></span>
                     <span class="px-4">Login or Register</span>
                 </button>
             </li>
             <li class="my-4 mx-1">
-                <span class="pl-1 pr-3"><i class="fa-solid fa-wand-magic-sparkles fa-lg"></i></span>
-                <span class="px-4">Orders</span>
+                <button class="hover:bg-yellow-100 py-1 rounded-lg w-full text-start">
+                    <span class="pl-1 pr-3"><i class="fa-solid fa-wand-magic-sparkles fa-lg"></i></span>
+                    <span class="px-4">Orders</span>
+                </button>
             </li>
             <li class="my-4 mx-1">
-                <span class="pl-1 pr-3"><i class="fa-solid fa-rotate-left  fa-lg"></i></span>
-                <span class="px-4">Refund</span>
+                <button class="hover:bg-yellow-100 py-1 rounded-lg w-full text-start">
+                    <span class="pl-1 pr-3"><i class="fa-solid fa-rotate-left  fa-lg"></i></span>
+                    <span class="px-4">Refund</span>
+                </button>
             </li>
             <li class="my-4 mx-1">
-                <span class="pl-1 pr-3"><i class="fa-brands fa-cc-diners-club fa-lg"></i></span>
-                <span class="px-4">Coupon</span>
+                <button class="hover:bg-yellow-100 py-1 rounded-lg w-full text-start">
+                    <span class="pl-1 pr-3"><i class="fa-brands fa-cc-diners-club fa-lg"></i></span>
+                    <span class="px-4">Coupon</span>
+                </button>
             </li>
             <li class="my-4 mx-1">
-                <span class="pl-1 pr-3"><i class="fa-solid fa-basket-shopping  fa-lg"></i></span>
-                <span class="px-4">Basket</span>
+                <button class="hover:bg-yellow-100 py-1 rounded-lg w-full text-start">
+                    <span class="pl-1 pr-3"><i class="fa-solid fa-basket-shopping  fa-lg"></i></span>
+                    <span class="px-4">Basket</span>
+                </button>
             </li>
             <li class="my-4 mx-1">
-                <span class="pl-1 pr-3"><i class="fa-regular fa-credit-card fa-lg"></i></span>
-                <span class="px-4">Cards</span>
+                <button class="hover:bg-yellow-100 py-1 rounded-lg w-full text-start">
+                    <span class="pl-1 pr-3"><i class="fa-regular fa-credit-card fa-lg"></i></span>
+                    <span class="px-4">Cards</span>
+                </button>
             </li>
             <li class="my-4 mx-1">
-                <span class="pl-1 pr-3"><i class="fa-regular fa-heart  fa-lg"></i></span>
-                <span class="px-4">Favorites</span>
+                <button class="hover:bg-yellow-100 py-1 rounded-lg w-full text-start">
+                    <span class="pl-1 pr-3"><i class="fa-regular fa-heart  fa-lg"></i></span>
+                    <span class="px-4">Favorites</span>
+                </button>
             </li>
             <li class="my-4 mx-1">
-                <span class="pl-1 pr-3"><i class="fa-regular fa-message fa-lg"></i></span>
-                <span class="px-4">Chat</span>
+                <button class="hover:bg-yellow-100 py-1 rounded-lg w-full text-start">
+                    <span class="pl-1 pr-3"><i class="fa-regular fa-message fa-lg"></i></span>
+                    <span class="px-4">Chat</span>
+                </button>
             </li>
             <li class="my-4 mx-1">
-                <span class="pl-1 pr-3"><i class="fa-solid fa-gear fa-lg"></i></span>
-                <span class="px-4">Setting</span>
+                <button class="hover:bg-yellow-100 py-1 rounded-lg w-full text-start">
+                    <span class="pl-1 pr-3"><i class="fa-solid fa-gear fa-lg"></i></span>
+                    <span class="px-4">Setting</span>
+                </button>
             </li>
             <li class="my-4 mx-1">
-                <span class="pl-1 pr-3"><i class="fa-solid fa-right-from-bracket fa-lg"></i></span>
-                <span class="px-4">Logout</span>
+                <button class="hover:bg-yellow-100 py-1 rounded-lg w-full text-start">
+                    <span class="pl-1 pr-3"><i class="fa-solid fa-right-from-bracket fa-lg"></i></span>
+                    <span class="px-4">Logout</span>
+                </button>
             </li>
         </ul>
     </div>
@@ -75,7 +93,7 @@ const toggleLoginRegisterModal = () => store.TOGGLELOGINREGISTERMODAL();
 //*********************************************************************************************************/
 
 //***************************************************** Open Or Close DropDown Button *********************/
-const prop = defineProps(['toggle_value'])
+const prop = defineProps(['toggle_value','user_email'])
 const toggle_value = computed(() => {
     return prop.toggle_value;
 })

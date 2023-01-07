@@ -84,7 +84,6 @@ class UserController {
       console.log('user ',req.user);
       await UserServices.addBasket(product_id, req.user.data.email)
         .then((respond) => {
-          console.log('user from cont basket : ',respond);
           res.send(respond);
         })
         .catch((err) => {
@@ -107,7 +106,7 @@ class UserController {
       console.log('user ',req.user);
       await UserServices.addFavorites(product_id, req.user.data.email)
         .then((respond) => {
-          res.send(respond.data);
+          res.send(respond);
         })
         .catch((err) => {
           console.log("Adding Product Error : ", err);
