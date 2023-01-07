@@ -87,25 +87,17 @@ const user_store = userStore();
 const user = ref();
 user.value = JSON.parse(sessionStorage.getItem('user'));
 
+const canvas_toggle = computed(()=> store.GETCANVASTOGGLE);
 
-const canvas_toggle = computed(()=>{
-    return store.GETCANVASTOGGLE;
-});
+const toggleCatalog = () => store.CANVASTOGGLE();
 
-const toggleCatalog = () => {
-    store.CANVASTOGGLE();
-}
-
-const closeCatalog = () =>{    
-    store.canvas_toggle=false
-}
-
+const closeCatalog = () => store.canvas_toggle=false;
 //***************************************************************************************************************/
-
-const dropdown_value = ref(false);
-
+const dropdown_value = computed(()=>{
+    return store.GETUSERDROPDOWN
+})
 const openDropdown = () => {
-    dropdown_value.value = !dropdown_value.value;
+    store.TOGGLEUSERDROPDOWN();
 }
 
 </script>

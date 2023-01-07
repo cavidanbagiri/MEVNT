@@ -7,9 +7,11 @@ const userStore = defineStore("user_store", {
     current_user: null,
     basket_size:0,
     favorites_size:0,
+    current_tab:0,
   }),
   getters: {
     GETCURRENTUSER:(state) => state.current_user,
+    GETCURRENTTAB:(state) => state.current_tab,
     GETBASKETSIZE:(state) => {
       const user = JSON.parse(sessionStorage.getItem('user'));
       state.basket_size = user?.basket?.length;
@@ -22,13 +24,14 @@ const userStore = defineStore("user_store", {
     },
   },
   actions: {
+    //Change User Login Register Tab
+    CHANGETAB(){ this.current_tab = this.current_tab === 0 ? 1 : 0; },
     //Register User
     async REGISTERUSER(user_data) {
-      console.log("register work");
       axios
         .post("http://localhost:3000/user/signup", user_data)
         .then((respond) => {
-          console.log("user register By Vue : ", respond);
+          this.current_tab = 0;
         })
         .catch((err) => {
           console.log("Register Error By Vue");
