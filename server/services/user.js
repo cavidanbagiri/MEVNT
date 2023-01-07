@@ -58,7 +58,9 @@ class UserServices{
             email:user_email
         });
         await user.basket.push(product);
-        return user.save();
+        user.save();
+        console.log('user from service : ',user);
+        return user;
     }
     //Add Product to
     static async addFavorites(product_id, user_email){

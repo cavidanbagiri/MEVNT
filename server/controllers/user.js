@@ -74,7 +74,6 @@ class UserController {
   }
   static async addBasket(req, res) {
     const product_id = req.params.id;
-    console.log("product id is : ", product_id);
     try {
       //Before Adding basket, firstly take refreshToken from req.headers.cookies;
       //const {refreshToken} = req.cookies;
@@ -85,7 +84,8 @@ class UserController {
       console.log('user ',req.user);
       await UserServices.addBasket(product_id, req.user.data.email)
         .then((respond) => {
-          res.send(respond.data);
+          console.log('user from cont basket : ',respond);
+          res.send(respond);
         })
         .catch((err) => {
           console.log("Adding Product Error : ", err);

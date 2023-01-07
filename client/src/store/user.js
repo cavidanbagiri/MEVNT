@@ -6,7 +6,9 @@ const userStore = defineStore("user_store", {
   state: () => ({
     current_user: null
   }),
-  getters: {},
+  getters: {
+    GETCURRENTUSER:(state) => state.current_user
+  },
   actions: {
     //Register User
     async REGISTERUSER(user_data) {
@@ -78,6 +80,9 @@ const userStore = defineStore("user_store", {
         })
         .then((respond) => {
           console.log("vue side : ", respond);
+
+          this.current_user = respond.data;
+          sessionStorage.setItem('user',JSON.stringify(this.current_user));
         })
         .catch((err) => {
           console.log("axios error for addbasket product : ", err);

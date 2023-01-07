@@ -1,7 +1,7 @@
 
 <template>
     <div class="flex flex-col w-60 h-auto mt-2 hover:shadow-2xl mx-2 mb-10 hover:scale-105 hover:rounded-xl transition ease-in-out delay-150">
-        <router-link to="/">
+        <!-- <router-link to="/"> -->
             <div class="relative">
                 <!-- <img class="h-64 w-full m-0 p-0" src="https://basket-08.wb.ru/vol1131/part113161/113161794/images/c246x328/1.jpg" alt=""> -->
                 <img class="h-60 w-full m-0 p-0" :src="props.item.Thumbnail" alt="">
@@ -31,7 +31,7 @@
                     Add Basket
                 </button>
             </div>
-        </router-link>
+        <!-- </router-link> -->
     </div>
 </template>
 
