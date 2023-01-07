@@ -13,18 +13,6 @@ router.get('/:catalog_name', ProductController.fetchAllDocument);
 export default router;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 // import fs from 'fs';
 // import fetch from 'node-fetch';
 //Get Mobile Data

@@ -1,6 +1,5 @@
 import AppError from "../exceptions/AppError.js";
 import ProductService from "../services/product.js";
-
 import tryCatch from "../utils/tryCatch.js";
 
 class ProductController {
