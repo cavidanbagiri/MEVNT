@@ -47,35 +47,27 @@ class UserServices{
 
     //Find User By Id
     static async findUserById(user_id){
-        console.log('user id : ',user_id);
         const finding_user = await User.findById(user_id);
         return finding_user; 
     }
 
     //Add Product to
     static async addBasket(product_id, user_email){
-        console.log('product id : ',product_id,' ',user_email);
         const product = await ProductSchema.findById(mongoose.Types.ObjectId(product_id));
         const user = await User.findOne({
             email:user_email
         });
         await user.basket.push(product);
-        user.save();
-        console.log('product is : ',product,' user : ',user);
-        return 1;
+        return user.save();
     }
     //Add Product to
     static async addFavorites(product_id, user_email){
-        console.log('product id : ',product_id,' ',user_email);
         const product = await ProductSchema.findById(mongoose.Types.ObjectId(product_id));
         const user = await User.findOne({
             email:user_email
         });
-        console.log('add favorites');
         await user.favorites.push(product);
-        user.save();
-        console.log('product is : ',product,' user : ',user);
-        return 1;
+        return user.save();
     }
 
 }
