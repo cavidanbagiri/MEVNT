@@ -1,11 +1,11 @@
 // import AppError from '../exceptions/AppError.js';
-import ProductService from '../services/product.js';
-import tryCatch from '../utils/tryCatch.js';
+import ProductService from "../services/product.js";
+import tryCatch from "../utils/tryCatch.js";
 
 class ProductController {
   static async fetchAllDocument (req, res, next) {
     const catalogName = req.params.catalog_name;
-    if (catalogName[0] === '6') {
+    if (catalogName[0] === "6") {
       tryCatch(
         await ProductService.fetchById(catalogName)
           .then((respond) => {
@@ -93,9 +93,9 @@ class ProductController {
   static async insertProduct (req, res) {
     try {
       ProductService.insertData();
-      res.send('insert doc work');
+      res.send("insert doc work");
     } catch (err) {
-      console.log('Insert Data Err: ', err);
+      console.log("Insert Data Err: ", err);
     }
   }
 }

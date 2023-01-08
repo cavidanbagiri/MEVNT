@@ -1,9 +1,9 @@
-import ProductController from '../controllers/product.js';
-import express from 'express';
+import ProductController from "../controllers/product.js";
+import express from "express";
 const router = express.Router();
 
-router.post('/insert', ProductController.insertProduct);
-router.get('/:catalog_name', ProductController.fetchAllDocument);
+router.post("/insert", ProductController.insertProduct);
+router.get("/:catalog_name", ProductController.fetchAllDocument);
 
 export default router;
 

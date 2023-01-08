@@ -1,18 +1,18 @@
 // import { UserServices, TokenService } from '../services/user.js';
-import { UserServices } from '../services/user.js';
-import tryCatch from '../utils/tryCatch.js';
+import { UserServices } from "../services/user.js";
+import tryCatch from "../utils/tryCatch.js";
 // import AppError from '../exceptions/AppError.js';
 
-import pkg from 'jsonwebtoken';
+import pkg from "jsonwebtoken";
 
 import {
   hashPassword,
   generateToken,
   resfreshToken
-} from '../scripts/helpers.js';
+} from "../scripts/helpers.js";
 const { verify } = pkg;
 
-const pl = ['c', 'c#', 'c++', 'java', 'python'];
+const pl = ["c", "c#", "c++", "java", "python"];
 
 class UserController {
   // Register User
@@ -54,7 +54,7 @@ class UserController {
     tryCatch(
       await UserServices.loginUser(user, refreshToken)
         .then(async (respond) => {
-          res.cookie('refreshToken', refreshToken, {
+          res.cookie("refreshToken", refreshToken, {
             maxAge: 24 * 60 * 60 * 1000
           });
           res.json({ token: accessToken, user: respond });
@@ -89,9 +89,9 @@ class UserController {
     // Find User From User Model
     // const userData = await UserServices.findUserById(userId);
     if (refreshToken) {
-      verify(refreshToken, 'refresh', async (err, user) => {
+      verify(refreshToken, "refresh", async (err, user) => {
         if (err) {
-          res.send('Jwt Refresh Can Find : ', err);
+          res.send("Jwt Refresh Can Find : ", err);
         }
         const accessToken = await generateToken(user);
         res.json({ token: accessToken });

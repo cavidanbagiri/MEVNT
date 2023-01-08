@@ -1,10 +1,10 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const tokenSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'users'
+      ref: "users"
     },
     refresh_token: {
       type: String,
@@ -15,6 +15,6 @@ const tokenSchema = new mongoose.Schema(
 );
 
 // eslint-disable-next-line new-cap
-const UserToken = new mongoose.model('tokens', tokenSchema);
+const UserToken = new mongoose.model("tokens", tokenSchema);
 
 export default UserToken;

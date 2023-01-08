@@ -1,7 +1,7 @@
-import User from '../models/user.js';
-import UserToken from '../models/token_schema.js';
-import ProductSchema from '../models/products.js';
-import mongoose from 'mongoose';
+import User from "../models/user.js";
+import UserToken from "../models/token_schema.js";
+import ProductSchema from "../models/products.js";
+import mongoose from "mongoose";
 
 class TokenService {
   static async createRefreshToken (user, accessToken) {
@@ -23,7 +23,7 @@ class TokenService {
 
   static async findToken (refreshToken) {
     const tokenData = await UserToken.findOne({ refresh_token: refreshToken });
-    console.log('token data : ', tokenData.user);
+    console.log("token data : ", tokenData.user);
     return tokenData.user;
   }
 }

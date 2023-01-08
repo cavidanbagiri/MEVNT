@@ -1,4 +1,4 @@
 
-import dotenv from './server.js';
+import dotenv from "./server.js";
 
 export default { dotenv };

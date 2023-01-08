@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
@@ -46,6 +46,6 @@ const userSchema = new mongoose.Schema(
 );
 
 // eslint-disable-next-line new-cap
-const User = new mongoose.model('users', userSchema);
+const User = new mongoose.model("users", userSchema);
 
 export default User;

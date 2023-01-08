@@ -1,8 +1,8 @@
-import fs from 'fs';
+import fs from "fs";
 
-import ProductSchema from '../models/products.js';
-import CategorySchema from '../models/categories.js';
-import PhonesSchema from '../models/phonesSchema.js';
+import ProductSchema from "../models/products.js";
+import CategorySchema from "../models/categories.js";
+import PhonesSchema from "../models/phonesSchema.js";
 // import mongoose from 'mongoose';
 
 class ProductService {
@@ -19,20 +19,20 @@ class ProductService {
     } else {
       products = await ProductSchema.find({
         CategoryId: catalog
-      }).populate('ProductId');
+      }).populate("ProductId");
     }
     return products;
   }
 
   // Fetch From Sub Document With According Collection
   static async fetchFromSubDocument (catalogName, query) {
-    const schemaName = catalogName + 'Schema';
+    const schemaName = catalogName + "Schema";
     let findings = [];
     // Find Catalog Name and get filters inside of according to subcollection and find inside of ProductSchema
     switch (schemaName) {
-    case 'ComputerSchema':
+    case "ComputerSchema":
       break;
-    case 'PhonesSchema':
+    case "PhonesSchema":
       findings = await PhonesSchema.find(query);
       break;
     }
@@ -56,15 +56,15 @@ class ProductService {
   static async fetchById (dataId) {
     const product = await ProductSchema.findOne({
       ProductId: dataId
-    }).populate('ProductId');
+    }).populate("ProductId");
     return product;
   }
 
   // Insert Document To Collection
   static async insertData () {
-    fs.readFile('./mobile_data1.json', 'utf8', async (err, data) => {
+    fs.readFile("./mobile_data1.json", "utf8", async (err, data) => {
       if (err) {
-        console.log('Err : ', err);
+        console.log("Err : ", err);
         return;
       }
       // Add Phones To Collection
@@ -87,7 +87,7 @@ class ProductService {
       delete i.Cell_Phone_Models;
 
       const colors = []; // Create Colors For Phones
-      const somes = i.Colors?.split('|'); // Split Colors
+      const somes = i.Colors?.split("|"); // Split Colors
       i.Price = 120;
       i.Discount = 5;
       i.Point = 3;
@@ -98,9 +98,9 @@ class ProductService {
       newPhone.save();
       // Find Category From Category Schema
       const categoryDoc = await CategorySchema.findOne({
-        category_name: 'Phones'
+        category_name: "Phones"
       });
-      console.log('Category Name : ', categoryDoc);
+      console.log("Category Name : ", categoryDoc);
       // Add PhoneDoc to Product Schema
       const newItem = await new ProductSchema({
         CategoryId: categoryDoc,
