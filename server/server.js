@@ -1,61 +1,47 @@
-import express from "express";
+import express from 'express';
+
+// Dotenv and DB Loaders
+import './config/index.js';
+import './loaders/db.js';
+import cors from 'cors';
+import errorHandler from './middlewares/errorHandler.js';
+
+import cookieParser from 'cookie-parser';
+
+//* *******************************************************Session
+import session from 'express-session';
+//* *************************************************************
+
+// Import Routers
+import { UserRouter, ProductRouter } from './routes/index.js';
 const app = express();
-
-// import cluster from "cluster";
-// import os from 'os';
-
-//Dotenv and DB Loaders
-import "./config/index.js";
-import "./loaders/db.js";
-import cors from "cors";
-import errorHandler from "./middlewares/errorHandler.js";
-
-import cookieParser from "cookie-parser";
-
-//********************************************************Session
-import session from "express-session";
-app.set("trust proxy", 1); // trust first proxy
+app.set('trust proxy', 1); // trust first proxy
 app.use(
   session({
-    secret: "keyboard cat",
+    secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true },
+    cookie: { secure: true }
   })
 );
-//**************************************************************
 
-//Import Routers
-import { UserRouter, ProductRouter } from "./routes/index.js";
-
-//User Express Json
+// User Express Json
 app.use(express.json());
 app.use(cookieParser());
-//Use Cors
+// Use Cors
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:5173",
+    origin: 'http://localhost:5173'
   })
 );
 
-//Get Routers
-app.use("/user", UserRouter);
-app.use("/product", ProductRouter);
+// Get Routers
+app.use('/user', UserRouter);
+app.use('/product', ProductRouter);
 
-//Error Handler
+// Error Handler
 app.use(errorHandler);
 
-
-// if(cluster.isPrimary){
-//   console.log('Master Start TO Work : ',os.cpus().length);
-//   for(let i = 0 ; i< os.cpus().length;i++){
-//     cluster.fork();
-//   }
-// } 
-// else{
-//   console.log('worker process started');
-// }
-
-//Start Node Project
-app.listen(3000, () => {console.log("listening");});
+// Start Node Project
+app.listen(3000, () => { console.log('listening'); });
