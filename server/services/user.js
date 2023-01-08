@@ -1,78 +1,80 @@
-
 import User from '../models/user.js';
 import UserToken from '../models/token_schema.js';
 import ProductSchema from '../models/products.js';
 import mongoose from 'mongoose';
 
-class TokenService{
-    static async createRefreshToken(user, access_token){
-        console.log('register token : ',access_token);
-        const token = new UserToken({
-            user:user,
-            refresh_token:access_token
-        });
-        token.save()
+class TokenService {
+  static async createRefreshToken (user, accessToken) {
+    const token = new UserToken({
+    //   user: user,
+      user,
+      refresh_token: accessToken
+    });
+    token.save();
+  }
+
+  static async saveRefreshToken (user, refreshToken) {
+    const tokenData = await UserToken.findOne({ user: user._id });
+    if (tokenData) {
+      tokenData.refresh_token = refreshToken;
+      return tokenData.save();
     }
-    static async saveRefreshToken(user, refresh_token){
-        const token_data = await UserToken.findOne({user:user._id});
-        if(token_data){
-            token_data.refresh_token = refresh_token;
-            return token_data.save();
-        }
-    }
-    static async findToken(refresh_token){
-        const token_data = await UserToken.findOne({refresh_token});
-        console.log('token data : ',token_data.user);
-        return token_data.user;
-    }
+  }
+
+  static async findToken (refreshToken) {
+    const tokenData = await UserToken.findOne({ refresh_token: refreshToken });
+    console.log('token data : ', tokenData.user);
+    return tokenData.user;
+  }
 }
 
-class UserServices{
+class UserServices {
+  //  Register User
+  static async registerUser (userData, accessToken) {
+    const currentUser = await new User(userData);
+    TokenService.createRefreshToken(currentUser, accessToken);
+    currentUser.save();
+  }
 
-    //Register User
-    static async registerUser(user_data,access_token){
-        const current_user = await new User(user_data);
-        TokenService.createRefreshToken(current_user, access_token);
-        current_user.save();
+  //  Login User
+  static async loginUser (userData, refreshToken) {
+    const currentUser = await User.findOne(userData);
+    if (currentUser) {
+      await TokenService.saveRefreshToken(currentUser, refreshToken);
     }
+    return currentUser;
+  }
 
-    //Login User
-    static async loginUser(user_data, refresh_token){
-        const current_user = await User.findOne(user_data);
-        if(current_user){
-            await TokenService.saveRefreshToken(current_user,refresh_token)
-        }
-        return current_user;
-    }
+  //  Find User By Id
+  static async findUserById (userId) {
+    const findingUser = await User.findById(userId);
+    return findingUser;
+  }
 
-    //Find User By Id
-    static async findUserById(user_id){
-        const finding_user = await User.findById(user_id);
-        return finding_user; 
-    }
+  //  Add Product to
+  static async addBasket (productId, userEmail) {
+    const product = await ProductSchema.findById(
+      mongoose.Types.ObjectId(productId)
+    );
+    const user = await User.findOne({
+      email: userEmail
+    });
+    await user.basket.push(product);
+    user.save();
+    return user;
+  }
 
-    //Add Product to
-    static async addBasket(product_id, user_email){
-        const product = await ProductSchema.findById(mongoose.Types.ObjectId(product_id));
-        const user = await User.findOne({
-            email:user_email
-        });
-        await user.basket.push(product);
-        user.save();
-        console.log('user from service : ',user);
-        return user;
-    }
-    //Add Product to
-    static async addFavorites(product_id, user_email){
-        const product = await ProductSchema.findById(mongoose.Types.ObjectId(product_id));
-        const user = await User.findOne({
-            email:user_email
-        });
-        await user.favorites.push(product);
-        return user.save();
-    }
-
+  //  Add Product to
+  static async addFavorites (productId, userEmail) {
+    const product = await ProductSchema.findById(
+      mongoose.Types.ObjectId(productId)
+    );
+    const user = await User.findOne({
+      email: userEmail
+    });
+    await user.favorites.push(product);
+    return user.save();
+  }
 }
 
-
-export {UserServices,TokenService};
+export { UserServices, TokenService };

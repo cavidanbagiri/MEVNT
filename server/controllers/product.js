@@ -1,13 +1,13 @@
-import AppError from "../exceptions/AppError.js";
-import ProductService from "../services/product.js";
-import tryCatch from "../utils/tryCatch.js";
+// import AppError from '../exceptions/AppError.js';
+import ProductService from '../services/product.js';
+import tryCatch from '../utils/tryCatch.js';
 
 class ProductController {
-  static async fetchAllDocument(req, res, next) {
-    let catalog_name = req.params.catalog_name;
-    if (catalog_name[0] === "6") {
+  static async fetchAllDocument (req, res, next) {
+    const catalogName = req.params.catalog_name;
+    if (catalogName[0] === '6') {
       tryCatch(
-        await ProductService.fetchById(catalog_name)
+        await ProductService.fetchById(catalogName)
           .then((respond) => {
             return res.send(respond);
           })
@@ -15,11 +15,9 @@ class ProductController {
             next(err);
           })
       );
-      return;
-    }
-    else{
+    } else {
       tryCatch(
-        await ProductService.fetchAllDocument(catalog_name, req.query)
+        await ProductService.fetchAllDocument(catalogName, req.query)
           .then((respond) => {
             res.send(respond);
           })
@@ -30,21 +28,21 @@ class ProductController {
     }
   }
 
-  //Fetch Documents According to Catalog Name
+  // Fetch Documents According to Catalog Name
   // static async fetchAllDocument(req, res,next) {
   //   try {
   //     //There are 2 Dynamic Id and always work first one is catalog name and second is id
   //     let catalog_name = req.params.catalog_name;
   //     //if start with 6 this is find ID
-  //     if (catalog_name[0] === "6") {
+  //     if (catalog_name[0] === '6') {
   //       //find by id work
   //       await ProductService.fetchById(catalog_name)
   //         .then((respond) => {
   //           return res.send(respond);
   //         })
   //         .catch((err) => {
-  //           console.log("Fetch Product Error : ", err);
-  //           return res.json({ "Fetch Product Error ": err });
+  //           console.log('Fetch Product Error : ', err);
+  //           return res.json({ 'Fetch Product Error ': err });
   //         });
   //         return ;
   //     }
@@ -64,12 +62,12 @@ class ProductController {
   //     //     res.send(respond);
   //     //   })
   //     //   .catch((err) => {
-  //     //     console.log("Fetch Documents Error : ", err);
-  //     //     res.json({ "Fetch Error ": err });
+  //     //     console.log('Fetch Documents Error : ', err);
+  //     //     res.json({ 'Fetch Error ': err });
   //     //   });
 
   //   } catch (err) {
-  //     console.log("Insert Data Err: ", err);
+  //     console.log('Insert Data Err: ', err);
   //   }
   // }
 
@@ -79,25 +77,25 @@ class ProductController {
   //     let id = req.params.id;
   //     ProductService.fetchById(id)
   //       .then((respond) => {
-  //         console.log("Fetch product respond is : ", respond);
+  //         console.log('Fetch product respond is : ', respond);
   //         res.send(respond);
   //       })
   //       .catch((err) => {
-  //         console.log("Fetch Product Error : ", err);
-  //         res.json({ "Fetch Product Error ": err });
+  //         console.log('Fetch Product Error : ', err);
+  //         res.json({ 'Fetch Product Error ': err });
   //       });
   //   } catch (err) {
-  //     console.log("Insert Data Err: ", err);
+  //     console.log('Insert Data Err: ', err);
   //   }
   // }
 
-  //Insert Data
-  static async insertProduct(req, res) {
+  //  Insert Data
+  static async insertProduct (req, res) {
     try {
       ProductService.insertData();
-      res.send("insert doc work");
+      res.send('insert doc work');
     } catch (err) {
-      console.log("Insert Data Err: ", err);
+      console.log('Insert Data Err: ', err);
     }
   }
 }
