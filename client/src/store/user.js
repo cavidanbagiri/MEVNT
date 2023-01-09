@@ -51,7 +51,25 @@ const userStore = defineStore("user_store", {
         .catch((err) => {
           console.log("Login Error By Vue");
         });
-    }, //Call Refresh Token
+    },
+    //Adding Profile Image
+    async addProfileImage(data){
+      const token = localStorage.getItem("token");
+      console.log('token ',token);
+      axios.post('http://localhost:3000/user/settings/addprofileimage', data,
+      {
+        headers: { authorization: `Bearer ${token}` },
+      }
+      )
+      .then((respond)=>{
+        // this.current_user = respond.data;
+        // sessionStorage.setItem('user',JSON.stringify(this.current_user));
+        // console.log('image upload respond : ', respond);
+      }).catch((err)=>{
+        console.log('image upload error : ', err);
+      })
+    },
+    //Call Refresh Token
     async refreshToken() {
       axios
         .get("http://localhost:3000/user/refresh")

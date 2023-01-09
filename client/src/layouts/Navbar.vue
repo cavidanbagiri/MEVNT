@@ -1,7 +1,7 @@
 
 <template>
 
-    <div class="grid grid-cols-12 shadow-lg sticky bg-white top-0 z-10 py-2">
+    <div class="grid grid-cols-12 shadow-lg  bg-white top-0 z-10 py-2">
         <!-- Brand Name For SM -->
         <div class=" col-span-12 block lg:hidden text-center">
             <router-link to="/">

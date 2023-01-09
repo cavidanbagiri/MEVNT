@@ -6,12 +6,9 @@
             <ul class="pl-1 lg:pl-5 mt-3  overflow-auto ">
                 <li class="my-1 text-black py-1 text-md hover:bg-yellow-100" @click="defineToggleEmits"
                     @mouseover="mouseHover" @mouseleave="mouseLeave" v-for="i in catalog">
-                    
-                        <router-link  :to="{ name:'Catalog', params:{category_name: `${Object.keys(i)[0]}` } }">
-                        <!-- <router-link  :to="/catalog/`${Object.keys(i)[0]}`"> -->
+                    <router-link :to="{ name: 'Catalog', params: { category_name: `${Object.keys(i)[0]}` } }">
                         {{ Object.keys(i)[0] }}
                     </router-link>
-
                 </li>
             </ul>
         </div>

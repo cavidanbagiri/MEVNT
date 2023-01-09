@@ -1,7 +1,7 @@
 
 
 <template>
-    <div :class="toggle_value ? 'drop-open' : 'drop-close'" class="fixed top-10 right-0 bg-white px-3 py-3 shadow-lg">
+    <div :class="toggle_value ? 'drop-open' : 'drop-close'" class="fixed top-10 right-0 bg-white px-3 py-3 shadow-lg z-10">
         <ul class="p-1">
             <li class="flex items-center mt-1 border border-orange-300 px-3 py-1 rounded-lg">
                 <img src="//avatars.mds.yandex.net/get-yapic/0/0-0/islands-retina-50" class="w-10 h-10" alt="">
@@ -67,10 +67,12 @@
                 </button>
             </li>
             <li class="my-4 mx-1">
-                <button class="hover:bg-yellow-100 py-1 rounded-lg w-full text-start">
-                    <span class="pl-1 pr-3"><i class="fa-solid fa-gear fa-lg"></i></span>
-                    <span class="px-4">Setting</span>
-                </button>
+                <router-link :to="{name:'Settings'}">
+                    <button class="hover:bg-yellow-100 py-1 rounded-lg w-full text-start">
+                        <span class="pl-1 pr-3"><i class="fa-solid fa-gear fa-lg"></i></span>
+                        <span class="px-4">Settings</span>
+                    </button>
+                </router-link>
             </li>
             <li class="my-4 mx-1">
                 <button class="hover:bg-yellow-100 py-1 rounded-lg w-full text-start">
