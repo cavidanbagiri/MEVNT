@@ -5,7 +5,6 @@ import "./config/index.js";
 import "./loaders/db.js";
 import cors from "cors";
 import errorHandler from "./middlewares/errorHandler.js";
-
 import cookieParser from "cookie-parser";
 
 //* *******************************************************Session
@@ -14,6 +13,7 @@ import session from "express-session";
 
 // Import Routers
 import { UserRouter, ProductRouter } from "./routes/index.js";
+
 const app = express();
 app.set("trust proxy", 1); // trust first proxy
 app.use(
@@ -24,6 +24,9 @@ app.use(
     cookie: { secure: true }
   })
 );
+
+// Using Static Files
+app.use(express.static("public"));
 
 // User Express Json
 app.use(express.json());
