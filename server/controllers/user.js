@@ -61,6 +61,7 @@ class UserController {
         })
         .catch((err) => next(err))
     );
+
     // try {
     //   const user = req.body;
     //   user.password = await hashPassword(user.password);
@@ -77,6 +78,25 @@ class UserController {
     // } catch (err) {
     //   console.log('User Login Error : ', err);
     // }
+  }
+
+  // Add Profile Image
+  static async addProfileImage (req, res, next) {
+    const file = req.file;
+    const userEmail = req.user.data.email;
+    const imageType = {
+      "image/png": ".png",
+      "image/jpg": ".jpg",
+      "image/jpeg": ".jpeg"
+    };
+    const fileName = userEmail + imageType[file.mimetype];
+    UserServices.addProfileImage(fileName, userEmail)
+      .then((respond) => {
+        res.send("Image Can Uploaded");
+      })
+      .catch((err) => {
+        throw new Error("Image Can Uploaded : ", err);
+      });
   }
 
   // Get New Access Token and As The Key User Refresh Token, when log in refresh token will be change.

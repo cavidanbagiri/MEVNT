@@ -11,8 +11,6 @@ router.get("/refresh", UserController.refreshToken);
 router.get("/addbasket/:id", authorizationFunc, UserController.addBasket);
 router.get("/addfavorite/:id", authorizationFunc, UserController.addFavorites);
 router.get("/", authorizationFunc, UserController.getUsers);
-router.post("/settings/addprofileimage", authorizationFunc, upload.single("file"), (req, res, next) => {
-  console.log(req.file);
-});
+router.post("/settings/addprofileimage", authorizationFunc, upload.single("file"), UserController.addProfileImage);
 
 export default router;

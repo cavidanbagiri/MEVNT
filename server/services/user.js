@@ -64,6 +64,15 @@ class UserServices {
     return user;
   }
 
+  // Add Profile Image
+  static async addProfileImage (filename, userEmail) {
+    const user = await User.findOne({
+      email: userEmail
+    });
+    user.profile_image = filename;
+    user.save();
+  }
+
   //  Add Product to
   static async addFavorites (productId, userEmail) {
     const product = await ProductSchema.findById(
