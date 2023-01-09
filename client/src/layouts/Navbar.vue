@@ -63,10 +63,13 @@
                 <span class="text-xs text-gray-400">Basket</span>
             </div>
             <div class="flex flex-col items-center justify-center " @click="openDropdown">
-                <button ><span><i class="fa-solid fa-user fa-xl"></i></span></button>
+                <!-- <button ><span><i class="fa-solid fa-user fa-xl"></i></span></button> -->
+                <img :src=" 'http://localhost:3000/avatars/' + user?.profile_image" 
+                class="w-10 h-10 border-2 rounded-full object-cover hover:cursor-pointer"
+                alt="">
                 <button ><span class="text-xs text-gray-400">Profile</span></button>
             </div>
-            <user-dropdown :toggle_value="dropdown_value" :user_email="user?.email"></user-dropdown>
+            <user-dropdown :toggle_value="dropdown_value" :user="user"></user-dropdown>
             
         </div>
 
