@@ -80,6 +80,19 @@ class UserController {
     // }
   }
 
+  // LogOut User
+  static async logOutUser (req, res, next) {
+    try {
+      const { refreshToken } = req.cookies;
+      // console.log("RefToke Is ", refreshToken);
+      const token = UserServices.logOutUser(refreshToken);
+      res.clearCookie("refreshToken");
+      res.send(token);
+    } catch (err) {
+      console.log("Logout Error ", err);
+    }
+  }
+
   // Add Profile Image
   static async addProfileImage (req, res, next) {
     const file = req.file;

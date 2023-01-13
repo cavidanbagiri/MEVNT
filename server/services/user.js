@@ -4,15 +4,16 @@ import ProductSchema from "../models/products.js";
 import mongoose from "mongoose";
 
 class TokenService {
+  // Create Refresh Token
   static async createRefreshToken (user, accessToken) {
     const token = new UserToken({
-    //   user: user,
       user,
       refresh_token: accessToken
     });
     token.save();
   }
 
+  // Save Refresh Token In User Token Collection
   static async saveRefreshToken (user, refreshToken) {
     const tokenData = await UserToken.findOne({ user: user._id });
     if (tokenData) {
@@ -21,10 +22,20 @@ class TokenService {
     }
   }
 
+  // Find Token
   static async findToken (refreshToken) {
+    console.log("ref token is : ", refreshToken);
     const tokenData = await UserToken.findOne({ refresh_token: refreshToken });
     console.log("token data : ", tokenData.user);
     return tokenData.user;
+  }
+
+  // Remove Token
+  static async removeToken (refreshToken) {
+    console.log("refresh token is : ", refreshToken);
+    const token = await UserToken.deleteOne({ refresh_token: refreshToken });
+    console.log("token is : ", token);
+    return token;
   }
 }
 
@@ -43,6 +54,12 @@ class UserServices {
       await TokenService.saveRefreshToken(currentUser, refreshToken);
     }
     return currentUser;
+  }
+
+  // Log Out User
+  static async logOutUser (refreshToken) {
+    const findToken = await TokenService.removeToken(refreshToken);
+    return findToken;
   }
 
   //  Find User By Id

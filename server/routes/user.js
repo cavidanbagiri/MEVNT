@@ -7,6 +7,7 @@ import { upload } from "../utils/multer_service.js";
 const router = express.Router();
 router.post("/signup", validateFunc(userValidationSchema), UserController.registerUser);
 router.post("/login", UserController.loginUser);
+router.post("/logout", UserController.logOutUser);
 router.get("/refresh", UserController.refreshToken);
 router.get("/addbasket/:id", authorizationFunc, UserController.addBasket);
 router.get("/addfavorite/:id", authorizationFunc, UserController.addFavorites);
