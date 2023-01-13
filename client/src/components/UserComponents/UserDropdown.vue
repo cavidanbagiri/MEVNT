@@ -1,12 +1,12 @@
 
 
 <template>
-    <div :class="toggle_value ? 'drop-open' : 'drop-close'" class="fixed top-10 right-0 bg-white px-3 py-3 shadow-lg z-10">
+    <div :class="toggle_value ? 'drop-open' : 'drop-close'"
+        class="fixed top-10 right-0 bg-white px-3 py-3 shadow-lg z-10">
         <ul class="p-1">
             <li class="flex items-center mt-1 border border-orange-300 px-3 py-1 rounded-lg">
-                <img v-if="prop?.user" :src=" 'http://localhost:3000/avatars/' + prop?.user?.profile_image" 
-                class="w-10 h-10 border-2 rounded-full object-cover"
-                alt="" >
+                <img v-if="prop?.user" :src="'http://localhost:3000/avatars/' + prop?.user?.profile_image"
+                    class="w-10 h-10 border-2 rounded-full object-cover" alt="">
                 <img v-else src="../../assets/avatars/default.png" class="w-10 h-10" alt="">
                 <div class="flex flex-col mx-2">
                     <span class="font-bold text-lg">Cavidan Bagiri</span>
@@ -21,10 +21,15 @@
                 </div>
             </li>
             <li class="mx-1 ">
-                <button class="hover:bg-gray-100 py-3 rounded-lg w-full text-start"
-                 @click="toggleLoginRegisterModal">
+                <button class="hover:bg-gray-100 py-3 rounded-lg w-full text-start" @click="toggleLoginRegisterModal">
                     <span class="pl-1 pr-3"><i class="fa-solid fa-arrow-right-to-bracket fa-lg"></i></span>
                     <span class="px-4">Login or Register</span>
+                </button>
+            </li>
+            <li v-if="user" class=" mx-1">
+                <button class="hover:bg-gray-100 py-3 rounded-lg w-full text-start" @click="logout">
+                    <span class="pl-1 pr-3"><i class="fa-solid fa-right-from-bracket fa-lg"></i></span>
+                    <span class="px-4">Logout</span>
                 </button>
             </li>
             <li class="mx-1">
@@ -70,18 +75,12 @@
                 </button>
             </li>
             <li class=" mx-1">
-                <router-link :to="{name:'Settings'}">
+                <router-link :to="{ name: 'Settings' }">
                     <button class="hover:bg-gray-100 py-3 rounded-lg w-full text-start">
                         <span class="pl-1 pr-3"><i class="fa-solid fa-gear fa-lg"></i></span>
                         <span class="px-4">Settings</span>
                     </button>
                 </router-link>
-            </li>
-            <li class=" mx-1">
-                <button class="hover:bg-gray-100 py-3 rounded-lg w-full text-start">
-                    <span class="pl-1 pr-3"><i class="fa-solid fa-right-from-bracket fa-lg"></i></span>
-                    <span class="px-4">Logout</span>
-                </button>
             </li>
         </ul>
     </div>
@@ -91,16 +90,23 @@
 
 import { computed } from 'vue';
 import canvasChecking from '../../store';
+import userStore from '../../store/user';
 const store = canvasChecking();
+const user_store = userStore();
 
 //***************************************************** Open Or Close Login Register Modal *********************/
 const toggleLoginRegisterModal = () => store.TOGGLELOGINREGISTERMODAL();
 //*********************************************************************************************************/
 
+//***************************************************** Logout Function */
+const logout = () => {
+    user_store.LOGOUTUSER();
+}
+//*********************************************************************************************************/
 
 //***************************************************** Open Or Close DropDown Button *********************/
-const prop = defineProps(['toggle_value','user'])
-console.log('user is : ',prop.user);
+const prop = defineProps(['toggle_value', 'user'])
+console.log('user is : ', prop.user);
 const toggle_value = computed(() => {
     return prop.toggle_value;
 })
@@ -109,7 +115,6 @@ const toggle_value = computed(() => {
 </script>
 
 <style scoped>
-
 .drop-open {
     transform: translate3d(0, 0, 0);
     transition: 0.6s all ease;

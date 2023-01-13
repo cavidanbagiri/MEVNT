@@ -52,6 +52,18 @@ const userStore = defineStore("user_store", {
           console.log("Login Error By Vue");
         });
     },
+    //Logout User
+    async LOGOUTUSER(){
+      axios
+        .post("http://localhost:3000/user/logout").then((respond)=>{
+          console.log('Logout Respond is : ', respond);
+          localStorage.removeItem("token");
+          sessionStorage.removeItem('user');
+          this.current_user = null;
+        }).catch((err)=>{
+          console.log('Logout Error Is : ',err);
+        })
+    },
     //Adding Profile Image
     async addProfileImage(data){
       const token = localStorage.getItem("token");
