@@ -4,10 +4,10 @@
     <div :class="toggle_value ? 'drop-open' : 'drop-close'" class="fixed top-10 right-0 bg-white px-3 py-3 shadow-lg z-10">
         <ul class="p-1">
             <li class="flex items-center mt-1 border border-orange-300 px-3 py-1 rounded-lg">
-                <!-- <img src="//avatars.mds.yandex.net/get-yapic/0/0-0/islands-retina-50" class="w-10 h-10" alt=""> -->
-                <img :src=" 'http://localhost:3000/avatars/' + prop?.user?.profile_image" 
+                <img v-if="prop?.user" :src=" 'http://localhost:3000/avatars/' + prop?.user?.profile_image" 
                 class="w-10 h-10 border-2 rounded-full object-cover"
-                alt="">
+                alt="" >
+                <img v-else src="../../assets/avatars/default.png" class="w-10 h-10" alt="">
                 <div class="flex flex-col mx-2">
                     <span class="font-bold text-lg">Cavidan Bagiri</span>
                     <span class="text-gray-500 text-md">{{ prop?.user?.email }}</span>

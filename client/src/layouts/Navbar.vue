@@ -64,8 +64,11 @@
             </div>
             <div class="flex flex-col items-center justify-center " @click="openDropdown">
                 <!-- <button ><span><i class="fa-solid fa-user fa-xl"></i></span></button> -->
-                <img :src=" 'http://localhost:3000/avatars/' + user?.profile_image" 
+                <img v-if="user" :src=" 'http://localhost:3000/avatars/' + user?.profile_image" 
                 class="w-10 h-10 border-2 rounded-full object-cover hover:cursor-pointer"
+                alt="">
+                <img v-else src='../assets/avatars/default.png' 
+                class="w-9 h-9 border-2 rounded-full object-cover hover:cursor-pointer"
                 alt="">
                 <button ><span class="text-xs text-gray-400">Profile</span></button>
             </div>
