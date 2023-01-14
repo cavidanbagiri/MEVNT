@@ -19,6 +19,10 @@
             Login
         </button>
         
+        <span v-if="loginErr" class="text-red-400 text-sm text-left w-full p-1">
+            {{ loginErr }}
+        </span>
+
     </vee-form>
    
 
@@ -28,21 +32,29 @@
 
 <script setup>
 
+import { ref, computed } from 'vue';
 import router from '../../router/index';
 import userStore from '../../store/user';
 import canvasChecking from '../../store';
 const store = userStore();
 const canvas_checking = canvasChecking();
-
+const loginErr = ref(null);
 const onSubmit = async (values) => { 
-    await store.LOGINUSER(values).then((respond)=>{
-        console.log('yes enter');
-        canvas_checking.login_register_modal_toggle = false;
-        
-        router.push('/');
-    }).catch((err)=>{
-        console.log('not found');
-    })
+    // await store.LOGINUSER(values).then((respond)=>{
+    //     console.log('yes enter ',respond);
+    //     canvas_checking.login_register_modal_toggle = false;
+    //     router.push('/');
+    // }).catch((err)=>{
+    //     console.log('not found');
+    // })
+        await store.LOGINUSER(values).then((respond)=>{
+           loginErr.value = null;
+            canvas_checking.login_register_modal_toggle = false;
+            router.push('/');
+        }).catch((err)=>{
+            loginErr.value = err;
+        })
+    
 };
 
 

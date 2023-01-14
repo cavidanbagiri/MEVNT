@@ -20,16 +20,10 @@
                     <span class="text-gray-500 text-md px-4 text-sm">Suggest friends and earn gift</span>
                 </div>
             </li>
-            <li class="mx-1 ">
+            <li v-if="!user" class="mx-1 ">
                 <button class="hover:bg-gray-100 py-3 rounded-lg w-full text-start" @click="toggleLoginRegisterModal">
                     <span class="pl-1 pr-3"><i class="fa-solid fa-arrow-right-to-bracket fa-lg"></i></span>
                     <span class="px-4">Login or Register</span>
-                </button>
-            </li>
-            <li v-if="user" class=" mx-1">
-                <button class="hover:bg-gray-100 py-3 rounded-lg w-full text-start" @click="logout">
-                    <span class="pl-1 pr-3"><i class="fa-solid fa-right-from-bracket fa-lg"></i></span>
-                    <span class="px-4">Logout</span>
                 </button>
             </li>
             <li class="mx-1">
@@ -82,6 +76,12 @@
                     </button>
                 </router-link>
             </li>
+            <li v-if="user" class=" mx-1">
+                <button class="hover:bg-gray-100 py-3 rounded-lg w-full text-start" @click="logout">
+                    <span class="pl-1 pr-3"><i class="fa-solid fa-right-from-bracket fa-lg"></i></span>
+                    <span class="px-4">Logout</span>
+                </button>
+            </li>
         </ul>
     </div>
 </template>
@@ -106,7 +106,6 @@ const logout = () => {
 
 //***************************************************** Open Or Close DropDown Button *********************/
 const prop = defineProps(['toggle_value', 'user'])
-console.log('user is : ', prop.user);
 const toggle_value = computed(() => {
     return prop.toggle_value;
 })

@@ -39,9 +39,10 @@ const userStore = defineStore("user_store", {
     },
     //Login User
     async LOGINUSER(user_data) {
-      axios
+      await axios
         .post("http://localhost:3000/user/login", user_data)
         .then((respond) => {
+          console.log('then work');
           localStorage.setItem("token", respond.data.token);
           delete respond.data.user.password;
           delete respond.data.user.cards;
@@ -49,14 +50,13 @@ const userStore = defineStore("user_store", {
           sessionStorage.setItem('user',JSON.stringify(this.current_user));
         })
         .catch((err) => {
-          console.log("Login Error By Vue");
+          throw Error(err.response.data);
         });
     },
     //Logout User
     async LOGOUTUSER(){
       axios
         .post("http://localhost:3000/user/logout").then((respond)=>{
-          console.log('Logout Respond is : ', respond);
           localStorage.removeItem("token");
           sessionStorage.removeItem('user');
           this.current_user = null;
@@ -67,7 +67,6 @@ const userStore = defineStore("user_store", {
     //Adding Profile Image
     async addProfileImage(data){
       const token = localStorage.getItem("token");
-      console.log('token ',token);
       axios.post('http://localhost:3000/user/settings/addprofileimage', data,
       {
         headers: { authorization: `Bearer ${token}` },
@@ -76,7 +75,6 @@ const userStore = defineStore("user_store", {
       .then((respond)=>{
         // this.current_user = respond.data;
         // sessionStorage.setItem('user',JSON.stringify(this.current_user));
-        // console.log('image upload respond : ', respond);
       }).catch((err)=>{
         console.log('image upload error : ', err);
       })
@@ -86,7 +84,6 @@ const userStore = defineStore("user_store", {
       axios
         .get("http://localhost:3000/user/refresh")
         .then((respond) => {
-          console.log("refresh respond is : ", respond);
           localStorage.setItem("token", respond.data.token);
         })
         .catch((err) => {
@@ -96,7 +93,6 @@ const userStore = defineStore("user_store", {
     //Check Token
     async getUser() {
       const token = localStorage.getItem("token");
-      console.log("token : ", token);
       axios
         .get("http://localhost:3000/user/", {
           headers: { authorization: `Bearer ${token}` },
@@ -105,29 +101,22 @@ const userStore = defineStore("user_store", {
           console.log("get after token: ", respond);
         })
         .catch((err) => {
-          console.log("status : ", err.response.status);
           if (err.response.status === 401) {
             this.refreshToken();
-          } else {
-            console.log("none");
           }
-          console.log("Token Error By Vue s: ", err);
         });
     },
     //Add Basket
     async addBasket(product) {
-      console.log("adding product is : ", product);
       const token = localStorage.getItem("token");
-      console.log("token is : ", token);
       axios
         .get("http://localhost:3000/user/addbasket/" + product._id, {
           headers: { authorization: `Bearer ${token}` },
         })
         .then((respond) => {
-          console.log("vue side : ", respond);
           this.current_user = respond.data;
           sessionStorage.setItem('user',JSON.stringify(this.current_user));
-          this.basket_size+=1;
+          this.basket_size += 1;
         })
         .catch((err) => {
           console.log("axios error for addbasket product : ", err);
