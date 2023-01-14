@@ -48,6 +48,7 @@ const userStore = defineStore("user_store", {
           delete respond.data.user.cards;
           this.current_user = respond.data.user;
           sessionStorage.setItem('user',JSON.stringify(this.current_user));
+          
         })
         .catch((err) => {
           throw Error(err.response.data);

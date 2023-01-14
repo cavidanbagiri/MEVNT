@@ -101,6 +101,7 @@ const toggleLoginRegisterModal = () => store.TOGGLELOGINREGISTERMODAL();
 //***************************************************** Logout Function */
 const logout = () => {
     user_store.LOGOUTUSER();
+    location.reload();
 }
 //*********************************************************************************************************/
 

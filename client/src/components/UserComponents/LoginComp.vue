@@ -51,6 +51,7 @@ const onSubmit = async (values) => {
            loginErr.value = null;
             canvas_checking.login_register_modal_toggle = false;
             router.push('/');
+            location.reload();
         }).catch((err)=>{
             loginErr.value = err;
         })
