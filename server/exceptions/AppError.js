@@ -8,6 +8,10 @@ class AppError extends Error {
   static BadRequest (message, statusCode, errorCode = []) {
     return new AppError(message, statusCode);
   }
+
+  static UserNotFound (message, statusCode, errorCode = []) {
+    return new AppError(message, statusCode);
+  }
 }
 
 export default AppError;

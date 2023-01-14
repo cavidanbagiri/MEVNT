@@ -54,6 +54,7 @@ class UserController {
     tryCatch(
       await UserServices.loginUser(user, refreshToken)
         .then(async (respond) => {
+          console.log("respond is : ", respond);
           res.cookie("refreshToken", refreshToken, {
             maxAge: 24 * 60 * 60 * 1000
           });

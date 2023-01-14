@@ -2,6 +2,7 @@ import User from "../models/user.js";
 import UserToken from "../models/token_schema.js";
 import ProductSchema from "../models/products.js";
 import mongoose from "mongoose";
+import AppError from "../exceptions/AppError.js";
 
 class TokenService {
   // Create Refresh Token
@@ -52,6 +53,9 @@ class UserServices {
     const currentUser = await User.findOne(userData);
     if (currentUser) {
       await TokenService.saveRefreshToken(currentUser, refreshToken);
+    } else {
+      // throw new Error("User Not Found");
+      throw new AppError("User Not Found", 400);
     }
     return currentUser;
   }
