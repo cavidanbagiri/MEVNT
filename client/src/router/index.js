@@ -22,5 +22,15 @@ const router = createRouter({
     ],
 })
 
+router.beforeEach((to, from, next) => {
+    // if(to)
+    // console.log('len ',typeof to.params);
+    if(Object.keys(to.params).length){
+        document.title='Market '+`${to.name} - ${to.params.category_name}`;
+    }else{
+        document.title='Market '+`${to.name}`;
+    }
+    next();
+})
 
 export default router;

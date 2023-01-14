@@ -29,7 +29,7 @@ const userStore = defineStore("user_store", {
     //Register User
     async REGISTERUSER(user_data) {
       axios
-        .post("http://localhost:3000/user/signup", user_data)
+        .post("/api/user/signup", user_data)
         .then((respond) => {
           this.current_tab = 0;
         })
@@ -40,7 +40,7 @@ const userStore = defineStore("user_store", {
     //Login User
     async LOGINUSER(user_data) {
       await axios
-        .post("http://localhost:3000/user/login", user_data)
+        .post("/api/user/login", user_data)
         .then((respond) => {
           console.log('then work');
           localStorage.setItem("token", respond.data.token);
@@ -57,7 +57,7 @@ const userStore = defineStore("user_store", {
     //Logout User
     async LOGOUTUSER(){
       axios
-        .post("http://localhost:3000/user/logout").then((respond)=>{
+        .post("/api/user/logout").then((respond)=>{
           localStorage.removeItem("token");
           sessionStorage.removeItem('user');
           this.current_user = null;
@@ -68,7 +68,7 @@ const userStore = defineStore("user_store", {
     //Adding Profile Image
     async addProfileImage(data){
       const token = localStorage.getItem("token");
-      axios.post('http://localhost:3000/user/settings/addprofileimage', data,
+      axios.post('/api/user/settings/addprofileimage', data,
       {
         headers: { authorization: `Bearer ${token}` },
       }
@@ -83,7 +83,7 @@ const userStore = defineStore("user_store", {
     //Call Refresh Token
     async refreshToken() {
       axios
-        .get("http://localhost:3000/user/refresh")
+        .get("/api/user/refresh")
         .then((respond) => {
           localStorage.setItem("token", respond.data.token);
         })
@@ -95,7 +95,7 @@ const userStore = defineStore("user_store", {
     async getUser() {
       const token = localStorage.getItem("token");
       axios
-        .get("http://localhost:3000/user/", {
+        .get("/api/user/", {
           headers: { authorization: `Bearer ${token}` },
         })
         .then((respond) => {
@@ -111,7 +111,7 @@ const userStore = defineStore("user_store", {
     async addBasket(product) {
       const token = localStorage.getItem("token");
       axios
-        .get("http://localhost:3000/user/addbasket/" + product._id, {
+        .get("/api/user/addbasket/" + product._id, {
           headers: { authorization: `Bearer ${token}` },
         })
         .then((respond) => {
@@ -127,7 +127,7 @@ const userStore = defineStore("user_store", {
     async addFavorite(product) {
       const token = localStorage.getItem("token");
       axios
-        .get("http://localhost:3000/user/addfavorite/" + product._id, {
+        .get("/api/user/addfavorite/" + product._id, {
           headers: { authorization: `Bearer ${token}` },
         })
         .then((respond) => {
