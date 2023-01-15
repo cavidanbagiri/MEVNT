@@ -82,15 +82,18 @@ class ProductService {
       // delete i['Cell_Phone_Brands'];
       // delete i['Cell_Phone_Models'];
 
-      delete i.objectId;
-      delete i.Cell_Phone_Brands;
-      delete i.Cell_Phone_Models;
+      delete i?.objectId;
+      delete i?.Cell_Phone_Brands;
+      delete i?.Cell_Phone_Models;
 
       const colors = []; // Create Colors For Phones
-      const somes = i.Colors?.split("|"); // Split Colors
-      i.Price = 120;
-      i.Discount = 5;
-      i.Point = 3;
+      const somes = i?.Colors?.split("|"); // Split Colors
+      const price = Math.floor(Math.random() * 8000 + 3000);
+      i.Price = price;
+      const discount = Math.floor(Math.random() * 25 + 5);
+      i.Discount = discount;
+      const point = Math.floor(Math.random() * 6);
+      i.Point = point;
       await somes?.filter((item) => colors.push(item.trim())); //  Add Colors in Colors Array
       i.Colors = colors;
       // Create One Phone Document
@@ -108,13 +111,13 @@ class ProductService {
         Model: i.Model,
         Brand: i.Brand,
         Thumbnail: i.Thumbnail,
-        Price: 120,
-        Discount: 5,
-        Point: 3,
+        Price: price,
+        Discount: discount,
+        Point: point,
         Colors: colors
       });
       newItem.save();
-      if (total === 13) return;
+      if (total === 26) return;
     }
   }
 }
