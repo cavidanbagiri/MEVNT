@@ -3,9 +3,9 @@
     <div class="col-span-9  flex-col justify-start mt-3">
 
         <div class="mx-2 my-5">
-            <span class=" mx-3  text-blue-800 text-md hover:underline-offset-1 hover:underline hover:cursor-pointer " >sort by price</span> 
-            <span class=" mx-3  text-blue-800 text-md hover:underline-offset-1 hover:underline hover:cursor-pointer " >sort by raiting</span>
-            <span class=" mx-3  text-blue-800 text-md hover:underline-offset-1 hover:underline hover:cursor-pointer " >sort by discount</span>
+            <span @click="sortByPrice" class=" mx-3  text-blue-800 text-md hover:underline-offset-1 hover:underline hover:cursor-pointer " >sort by price</span> 
+            <span @click="sortByRaiting" class=" mx-3  text-blue-800 text-md hover:underline-offset-1 hover:underline hover:cursor-pointer " >sort by raiting</span>
+            <span @click="sortByDiscount" class=" mx-3  text-blue-800 text-md hover:underline-offset-1 hover:underline hover:cursor-pointer " >sort by discount</span>
         </div>
 
         <div class="flex flex-wrap justify-between">
@@ -41,6 +41,18 @@ import CardItem from '../CardItemTemp.vue';
 import productStore from '../../store/product'
 const store = productStore();
 
+
+//********************************************************* Sort Documents ******************************************/
+const sortByPrice = () => {
+    temp = products.value.sort((a,b)=>(a.Price > b.Price) ? 1 : -1 );
+}
+const sortByRaiting = () => {
+    temp = products.value.sort((a,b)=>(a.Raiting > b.Raiting) ? 1 : -1 );
+}
+const sortByDiscount = () => {
+    temp = products.value.sort((a,b)=>(a.Discount > b.Discount) ? 1 : -1 );
+}
+//********************************************************************************************************************/
 
 //********************************************************* Fetch Documents ******************************************/
 const products = ref([]);

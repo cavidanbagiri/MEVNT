@@ -29,7 +29,7 @@ const sliders = ref([
 ]);
 
 const carouselPrev = () => {
-    image_section.value.classList.add('image-slider-prev');
+    image_section.valzzzue.classList.add('image-slider-prev');
     setTimeout(()=>{ 
         count.value === 0 ? count.value = sliders.value.length - 1 : count.value -= 1;
         image_section.value.classList.remove('image-slider-prev');

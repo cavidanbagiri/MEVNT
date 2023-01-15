@@ -32,7 +32,9 @@ const productStore = defineStore("ProductStore", {
         .get(`/api/product/${category_name}`)
         .then(async (respond) => {
           //Take All Products
+          console.log('first ',typeof this.products);
           this.products = await respond.data;
+          console.log('second ',typeof this.products);
           await this.FETCHONEPRODUCTFORFILTERS(this.products[0].ProductId._id);
           for await (let i of this.products) {
             for await (let j of Object.keys(this.filters_key)) {
