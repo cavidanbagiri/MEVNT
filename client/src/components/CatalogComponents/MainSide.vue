@@ -3,15 +3,13 @@
     <div class="col-span-9  flex-col justify-start mt-3">
 
         <div class="mx-2 my-5">
-            <span @click="sortByPrice" class=" mx-3  text-blue-800 text-md hover:underline-offset-1 hover:underline hover:cursor-pointer " >sort by price</span> 
-            <span @click="sortByRaiting" class=" mx-3  text-blue-800 text-md hover:underline-offset-1 hover:underline hover:cursor-pointer " >sort by raiting</span>
-            <span @click="sortByDiscount" class=" mx-3  text-blue-800 text-md hover:underline-offset-1 hover:underline hover:cursor-pointer " >sort by discount</span>
+            <span @click="sortByPrice" class=" text-sm font-bold mx-3  text-blue-800 text-md hover:underline-offset-1 hover:underline hover:cursor-pointer " >sort by price</span> 
+            <span @click="sortByRaiting" class=" text-sm font-bold mx-3  text-blue-800 text-md hover:underline-offset-1 hover:underline hover:cursor-pointer " >sort by raiting</span>
+            <span @click="sortByDiscount" class=" text-sm font-bold mx-3  text-blue-800 text-md hover:underline-offset-1 hover:underline hover:cursor-pointer " >sort by discount</span>
         </div>
 
         <div class="flex flex-wrap justify-between">
             
-
-
             <template v-if="products.length">
                 <div v-for="i in products" :key="i._id" >
                     <card-item :item="i"></card-item>
@@ -56,11 +54,6 @@ const sortByDiscount = () => {
 
 //********************************************************* Fetch Documents ******************************************/
 const products = ref([]);
-//Show On Client Side
-// const products = computed(() => {
-//     return store.GETPRODUCTS;
-// })
-
 watchEffect(()=>{
     products.value = store.GETPRODUCTS;
 })
