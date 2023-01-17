@@ -74,10 +74,10 @@ class ProductService {
 
   // Insert Data To Phones Sub Document
   static async addSubDocument (data) {
-    let total = 0;
+    // let total = 25;
     const products = JSON.parse(data);
     for await (const i of products.results) {
-      total++;
+      // total++;
       // delete i['objectId'];
       // delete i['Cell_Phone_Brands'];
       // delete i['Cell_Phone_Models'];
@@ -89,6 +89,7 @@ class ProductService {
       const colors = []; // Create Colors For Phones
       const somes = i?.Colors?.split("|"); // Split Colors
       const price = Math.floor(Math.random() * 8000 + 3000);
+      i.Thumbnail = "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg";
       i.Price = price;
       const discount = Math.floor(Math.random() * 25 + 5);
       i.Discount = discount;
@@ -110,14 +111,14 @@ class ProductService {
         ProductId: newPhone,
         Model: i.Model,
         Brand: i.Brand,
-        Thumbnail: i.Thumbnail,
+        Thumbnail: "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg",
         Price: price,
         Discount: discount,
         Point: point,
         Colors: colors
       });
       newItem.save();
-      if (total === 26) return;
+      // if (total === 26) return;
     }
   }
 }
