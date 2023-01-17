@@ -11,8 +11,8 @@
         <div class="flex flex-wrap justify-between">
             
             <template v-if="products.length">
-                <div v-for="i in products" :key="i._id" >
-                    <card-item :item="i"></card-item>
+                <div v-for="(i, index) in products" :key="i._id">
+                    <card-item v-if="(index >= start && index<=end)" :index="index" :item="i"></card-item>
                 </div>
             </template>
             <template v-else>
@@ -22,7 +22,7 @@
         </div>
 
         <!-- Pagination -->
-        <PaginationComp @changePageNumber="changePage">
+        <PaginationComp @changePageNumber="changePage" :product="products">
 
         </PaginationComp>
 
@@ -63,7 +63,7 @@ watchEffect(()=>{
 
 //********************************************************* Pagination Page ******************************************/
 //How Many Items Will Be In The Page
-const pagination_each_page_item_size = 10;
+const pagination_each_page_item_size = 25;
 //Start Pagination Number
 const start = ref(0);
 //Last Pagination Number
@@ -75,16 +75,6 @@ const changePage = (num) => {
 //********************************************************************************************************************/
 
 </script>
-
-
-
-
-
-
-
-
-
-
 
 <style lang="scss" scoped>
 

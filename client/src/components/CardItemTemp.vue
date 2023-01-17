@@ -24,6 +24,7 @@
             <i class="fa-solid fa-star fa-sm" style="color:orange"></i>
             <i class="fa-solid fa-star fa-sm" style="color:orange"></i>
         </div>
+        <span>{{ props.index }}</span>
         <div class="px-3 my-1 flex text-md items-center">
             <span class="text-md text-slate-400"><span class="text-black">Brand</span> {{ props.item.Brand }} </span>
         </div>
@@ -79,6 +80,7 @@ const store = userStore();
 const user = ref();
 user.value = JSON.parse(sessionStorage.getItem('user'));
 
+
 //Create Value that, is there is basket or note;
 let selected_product_basket = ref(false);
 let selected_product_favorites = ref(false);
@@ -97,7 +99,7 @@ watchEffect(() => {
     }
 })
 // Get Item From Parent
-const props = defineProps(['item']);
+const props = defineProps(['item', 'index']);
 
 // Add product to Basket
 const addBasket = () => {

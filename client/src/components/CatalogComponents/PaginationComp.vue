@@ -2,7 +2,7 @@
 <template>
     <div class="my-10  flex justify-start">
         <ul class="flex ">
-            <li v-for="i in 10" class="">
+            <li v-for="i in pageSize" class="">
                 <button :class="{cavidan: i === pagination_page }" class=" w-9 h-9 rounded-full
                  hover:text-white anim" @click="changePage(i)">
                     {{i}}
@@ -14,16 +14,23 @@
 
 <script setup>
     
-    import { ref } from 'vue';
+    import { ref, watchEffect } from 'vue';
     //Changing Active Class Condition Value
     const pagination_page = ref(1);
     //Emit When Pagination Number Clicked Create Emit
-    const emit = defineEmits(['changePageNumber'])
+    const emit = defineEmits(['changePageNumber']);
+    //Getting Product For Pagination
+    const props = defineProps(['product']);
     //Emit When Pagination Number Clicked Calling Emit
     const changePage = (item) => {
         pagination_page.value = item
         emit('changePageNumber',item);
     }
+    //Get Page Size For Stepping
+    const pageSize = ref(0);
+    watchEffect(()=>{
+        pageSize.value = Math.ceil(props.product.length/25);
+    })
 
 </script>
 
