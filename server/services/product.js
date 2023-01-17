@@ -62,7 +62,7 @@ class ProductService {
 
   // Insert Document To Collection
   static async insertData () {
-    fs.readFile("./mobile_data1.json", "utf8", async (err, data) => {
+    fs.readFile("./mobile_data.json", "utf8", async (err, data) => {
       if (err) {
         console.log("Err : ", err);
         return;
