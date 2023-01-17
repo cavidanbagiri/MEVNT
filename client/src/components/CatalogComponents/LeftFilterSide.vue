@@ -31,7 +31,7 @@
                 </ul>
 
                 <!-- Colors Section -->
-                <div v-else-if="key === 'Colors'"
+                <!-- <div v-else-if="key === 'Colors'"
                     class="p-1  w-full flex flex-wrap  mx-2 max-h-72  overflow-auto scrollbar-thin scrollbar-thumb-yellow-300 scrollbar-track-gray-200 ">
                     <div v-for="name in names" class="flex flex-wrap">
                         <template v-for="i in value">
@@ -40,7 +40,7 @@
                             </div>
                         </template>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Others Section -->
                 <ul v-else
